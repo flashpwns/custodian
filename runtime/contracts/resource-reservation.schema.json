@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/resource-reservation/v1","type":"object","required":["id","resource","quantity","source","plan"],"properties":{"id":{"type":"string"},"resource":{"type":"string"},"quantity":{"type":"number","exclusiveMinimum":0},"source":{"type":"string"},"plan":{"type":"string"}}}

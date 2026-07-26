@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/resource-allocation/v1","type":"object","required":["id","resource","quantity","source","assignee"],"properties":{"id":{"type":"string"},"resource":{"type":"string"},"quantity":{"type":"number","exclusiveMinimum":0},"source":{"type":"string"},"assignee":{"type":"string"}}}

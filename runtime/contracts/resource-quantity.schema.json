@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/resource-quantity/v1","type":"object","required":["resource","holder","quantity"],"properties":{"resource":{"type":"string"},"holder":{"type":"string"},"quantity":{"type":"number","minimum":0}}}

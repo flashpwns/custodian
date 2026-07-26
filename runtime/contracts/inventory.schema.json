@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/inventory/v1","type":"object","required":["container","contents"],"properties":{"container":{"type":"string"},"contents":{"type":"array","items":{"type":"string"}}}}
