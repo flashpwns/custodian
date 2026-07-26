@@ -55,6 +55,12 @@ small deterministic effect rule. The test suite consumes it only through the
 public package root and verifies create, advance, export, restore, and
 continuation equivalence.
 
+For authors, [`templates/world-pack-starter`](../../templates/world-pack-starter)
+is the official minimal pack and `create-custodian-worldpack` copies it without
+network access or hidden identity material. The readable
+[`examples/signal-room`](../../examples/signal-room) is a separate learning
+example. Both are tested unchanged through the same conformance command.
+
 ## Security boundary
 
 Custodian trusts a loaded pack only as data that may be rejected by validation.

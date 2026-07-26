@@ -1,5 +1,9 @@
 # Examples
 
+[`signal-room`](signal-room) is the neutral public learning example for external
+world-pack authors. It is distinct from the technical conformance fixture in
+`external-fixtures/` and is validated unchanged by the public launch test.
+
 Examples are compact, inspectable reference artifacts. They demonstrate contracts
 without requiring a particular language runtime or provider.
 

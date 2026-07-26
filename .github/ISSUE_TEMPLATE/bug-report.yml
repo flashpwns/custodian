@@ -1,0 +1,22 @@
+name: Bug report
+description: Report a reproducible Custodian defect.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Custodian version
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Do not include private, sensitive, or copyrighted pack content.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual result
+    validations:
+      required: true
