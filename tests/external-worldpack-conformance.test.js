@@ -1,0 +1,32 @@
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const { spawnSync } = require("node:child_process");
+const api = require("custodian");
+
+const root = path.resolve(__dirname, "..");
+const external = path.join(root, "external-fixtures", "signal-room");
+const pack = JSON.parse(fs.readFileSync(path.join(external, "manifest.json"), "utf8"));
+const scenario = JSON.parse(fs.readFileSync(path.join(external, "scenario.json"), "utf8"));
+const ticks = [{ id: "external-tick", at: 1, observers: scenario.observers.map((observer, index) => ({ ...observer, goals: index === 0 ? [{ id: "toggle", intent: "toggle-light", priority: 0 }] : [] })) }];
+const report = api.validateWorldPackConformance({ world_pack: pack, scenarios: [{ scenario, ticks }] });
+const reordered = api.validateWorldPackConformance({ scenarios: [{ ticks, scenario: structuredClone(scenario) }], world_pack: structuredClone(pack) });
+const command = spawnSync(process.execPath, ["runtime/conformance-command.js", "external-fixtures/signal-room", "--json"], { cwd: root, encoding: "utf8" });
+
+assert.equal(api.PUBLIC_API_VERSION, "custodian-public-api@v1");
+assert.equal(report.ok, true);
+assert.equal(report.scenarios[0].restored_equivalent, true);
+assert.equal(report.scenarios[0].continuation_equivalent, true);
+assert.equal(report.serialization, reordered.serialization, "conformance is insertion-order stable");
+assert.doesNotThrow(() => JSON.parse(report.serialization), "stable report bytes are JSON");
+assert.equal(command.status, 0, command.stderr);
+assert.equal(JSON.parse(command.stdout).ok, true);
+assert.throws(() => require("custodian/runtime/canonical-kernel.js"), /ERR_PACKAGE_PATH_NOT_EXPORTED/);
+assert.equal(api.validateWorldPackConformance({ world_pack: { ...pack, kernel_compatibility: "wrong" } }).ok, false);
+assert.equal(api.validateWorldPackConformance({ world_pack: { ...pack, id: "Invalid Pack" } }).ok, false);
+assert.equal(api.validateWorldPackConformance({ world_pack: pack, scenarios: [{ scenario: { id: "invalid" } }] }).ok, false);
+assert.equal(api.validateWorldPackConformance({ world_pack: pack, scenarios: {} }).errors[0].code, "INVALID_CONFORMANCE_REQUEST");
+const missingCommand = spawnSync(process.execPath, ["runtime/conformance-command.js"], { cwd: root, encoding: "utf8" });
+assert.equal(missingCommand.status, 2);
+assert.ok(JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).files.includes("index.js"));
+console.log("validated external world-pack conformance and public package boundary");
