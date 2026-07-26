@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/damage-state/v1","type":"object","required":["target","affordance","value","source_event","at"],"properties":{"target":{"type":"string"},"affordance":{"type":"string"},"value":{"type":"boolean"},"source_event":{"type":"string"},"at":{"type":"integer","minimum":0}}}

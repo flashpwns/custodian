@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/topology-change/v1","type":"object","required":["id","connection","traversable","due_at"],"properties":{"id":{"type":"string"},"connection":{"type":"string"},"traversable":{"type":"boolean"},"due_at":{"type":"integer","minimum":0}}}

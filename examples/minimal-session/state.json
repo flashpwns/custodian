@@ -1,5 +1,5 @@
 {
-  "schema_version": "9.0.0",
+  "schema_version": "10.0.0",
   "session_id": "demo-session-001",
   "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
   "projected_through": 2,
@@ -31,5 +31,6 @@
   "relationships": [],
   "messages": [],
   "plans": [], "commitments": [], "obligations": [], "planning_history": [], "resource_reservations": {},
+  "environment": { "conditions": {}, "hazards": {}, "damage": [], "topology_history": [] },
   "world_state": {}
 }
