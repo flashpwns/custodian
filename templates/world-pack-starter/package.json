@@ -1,0 +1,1 @@
+{"name":"starter-world-pack","version":"1.0.0","private":true,"description":"A declarative Custodian world pack.","scripts":{"conformance":"custodian-conformance . --json"},"devDependencies":{"custodian":"^1.0.0"}}
