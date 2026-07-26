@@ -153,6 +153,12 @@ epistemic state, creating proposals/effects, or directly mutating any state.
 An idle Director tick **MUST NOT** append events and may report completion only
 when no proposals, scheduled work, or pending effects remain.
 
+The Public Session API **MUST** expose only validated defensive snapshots,
+deterministic identities, replay-safe persistence envelopes, and structured public
+errors. It **MUST NOT** expose mutable reducer state or absorb Director, replay,
+or world-pack authority. The World-Pack Runtime Adapter **MUST** accept only
+validated declarative content and **MUST NOT** execute arbitrary pack code.
+
 ## 11. Version public contracts
 
 Public schemas, event types, and world packs **MUST** carry versions. Breaking

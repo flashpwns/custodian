@@ -35,3 +35,7 @@ domains.
 The Constitutional Director is not a reducer or authority. It orders observers
 and phases, composes evaluators, and commits their canonical outputs; it cannot
 interpret world state or write a domain directly.
+
+The Public Session API owns defensive copies, public validation, identity,
+persistence envelopes, and delegation. It cannot apply replay events or write
+reducer domains; the World-Pack Runtime Adapter only validates declarative packs.

@@ -21,6 +21,10 @@ Milestone 14 adds the Constitutional Director: deterministic tick orchestration,
 observer ordering, idle completion, and replay-compatible progression. It remains
 an orchestrator only, with no narrative or interpretive authority.
 
+Milestone 15 adds the Public Session API and declarative World-Pack Runtime
+Adapter. Future CLI, service, UI, scenario-tool, and LLM adapters consume this
+boundary rather than internal kernel modules.
+
 Remaining kernel work after perception is limited to deterministic rule/effect
 resolution hardening, world-pack extension compatibility, durable persistence and
 migration operations, and replay/invariant hardening. Product UI, LLM rendering,

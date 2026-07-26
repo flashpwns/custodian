@@ -50,6 +50,7 @@ be replayed. Custodian treats those seams as first-class design constraints.
 ```text
 Custodian
 └── Constitutional Kernel
+    ├── Public Session API
     ├── World Pack API
     └── Reference World Packs
         └── Kane Pixels Backrooms (first reference pack)
@@ -88,6 +89,10 @@ canonical contract/projection checks, and `npm run demo` for a structured two-ro
 simulation and replay comparison. Perception is a structured, projection-pinned
 observer-local acquisition boundary; attention, scene projection, disclosure
 policy, narration, and LLM rendering are intentionally not implemented yet.
+
+External software should use the Public Session API for deterministic creation,
+advancement, inspection, export, and restoration. It validates declarative world
+packs and returns defensive snapshots; reducers and the Director remain internal.
 
 ## Scope and non-goals
 

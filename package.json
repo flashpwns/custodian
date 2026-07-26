@@ -5,7 +5,7 @@
   "description": "Persistent, canon-aware narrative simulation framework.",
   "scripts": {
     "test": "node --test tests/*.test.js",
-    "validate": "node --test tests/artifact-validation.test.js tests/canonical-kernel.test.js tests/perception-projection.test.js tests/epistemic-decision-pipeline.test.js tests/action-execution.test.js tests/constitutional-director.test.js",
+    "validate": "node --test tests/artifact-validation.test.js tests/canonical-kernel.test.js tests/perception-projection.test.js tests/epistemic-decision-pipeline.test.js tests/action-execution.test.js tests/constitutional-director.test.js tests/public-session-api.test.js",
     "demo": "node runtime/demo.js",
     "replay": "node runtime/demo.js"
   },
