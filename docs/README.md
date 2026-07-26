@@ -15,6 +15,8 @@ weakening persistence or continuity.
   durable internal memory, retrieval, forgetting, and learning.
 - [`architecture/relationships-social.md`](architecture/relationships-social.md)
   defines trust, testimony, and emergent reputation.
+- [`architecture/communication-deception.md`](architecture/communication-deception.md)
+  defines deterministic, perspective-bounded messaging.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 

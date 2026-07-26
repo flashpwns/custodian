@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/channel-state/v1","type":"object","required":["id","fidelity","status"],"properties":{"id":{"type":"string"},"fidelity":{"type":"number"},"status":{"enum":["open","corrupted","lost"]}}}

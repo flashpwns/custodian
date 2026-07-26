@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/disclosure/v1","type":"object","required":["message_id","discloser","recipient"],"properties":{"message_id":{"type":"string"},"discloser":{"type":"string"},"recipient":{"type":"string"}}}

@@ -171,3 +171,17 @@ social knowledge and shared experience, not as an intrinsic agent property.
 Every externally observable contract change **MUST** have a fixture or automated
 test. Tests should prefer behavior at boundaries—input, event, projection, and
 replay—over incidental implementation structure.
+
+## 16. Separate communication from truth
+
+Communication transmits representations of belief, knowledge, intent, or claimed
+reality. Emission and delivery are objective events; a message's claim is not.
+Testimony records what a speaker claims, never direct proof of objective reality.
+Interpretation modifies recipient-local epistemic or social state only.
+
+Deliberate deception requires an intentional mismatch between a communicated claim
+and the speaker's relevant internal state. A false statement made from an incorrect
+belief is mistaken communication, not a lie. Omission is deliberate withholding,
+not a false claim; silence implies nothing by itself. Private messages require a
+delivery, interception, or later disclosure path before another agent may access
+them.

@@ -17,6 +17,8 @@ without requiring a particular language runtime or provider.
   retrieval, and memory-influenced proposals.
 - [`relationship-social/`](relationship-social/plan.json) demonstrates familiarity,
   trust, testimony, and reputation inputs.
+- [`communication-deception/`](communication-deception/plan.json) demonstrates
+  emission, delivery, interception, corruption, deception, and disclosure.
 
 Examples are intentionally fictional and do not assert new canon for any world
 pack.

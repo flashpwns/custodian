@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/claim/v1","type":"object","required":["proposition"],"properties":{"proposition":{"type":"string"},"truth":{"description":"Not carried by communication interpretation; objective resolution is separate."}}}

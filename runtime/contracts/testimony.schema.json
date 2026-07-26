@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/testimony/v1","type":"object","required":["speaker","claim","confidence"],"properties":{"speaker":{"type":"string"},"claim":{"type":"string"},"confidence":{"type":"number"}}}

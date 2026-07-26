@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/deception/v1","type":"object","required":["claim","speaker_state","intentional_mismatch"],"properties":{"claim":{"type":"string"},"speaker_state":{"type":"string"},"intentional_mismatch":{"type":"boolean"}}}

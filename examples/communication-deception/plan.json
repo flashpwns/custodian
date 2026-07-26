@@ -1,0 +1,11 @@
+{"objective_reality":{"gate.open":false,"hazard.real":true},"entries":[
+{"id":"private-warning","kind":"message","speaker":"a","recipients":["b"],"act":"warning","claim":"hazard.real=true","at":1,"delivery_at":1,"fidelity":1,"visibility":"private","status":"delivered","trust":{"b":0.9}},
+{"id":"mistake","kind":"message","speaker":"c","recipients":["d"],"claim":"gate.open=true","at":2,"fidelity":1,"status":"delivered","trust":{"d":0.5},"speaker_belief":"gate.open=true","deception":false},
+{"id":"lie","kind":"message","speaker":"e","recipients":["f"],"claim":"hazard.real=false","at":3,"fidelity":1,"status":"delivered","trust":{"f":0.8},"speaker_belief":"hazard.real=true","deception":true},
+{"id":"omission","kind":"message","speaker":"a","recipients":["b"],"claim":"gate.open=false","at":4,"fidelity":1,"status":"delivered","trust":{"b":0.9},"omits":"hazard.real=true"},
+{"id":"corrupt","kind":"message","speaker":"a","recipients":["g"],"claim":"hazard.real=true","corrupted":"hazard.real=false","at":5,"fidelity":0.3,"status":"corrupted","trust":{"g":0.8}},
+{"id":"delayed","kind":"message","speaker":"a","recipients":["h"],"claim":"gate.open=false","at":6,"delivery_at":9,"fidelity":1,"status":"delayed","trust":{"h":0.5}},
+{"id":"failed","kind":"message","speaker":"a","recipients":["i"],"claim":"hazard.real=true","at":7,"fidelity":1,"status":"failed","trust":{"i":1}},
+{"id":"intercepted","kind":"message","speaker":"a","recipients":["b","spy"],"intercept":"spy","claim":"hazard.real=true","at":8,"fidelity":1,"status":"intercepted","trust":{"b":0.9,"spy":0.2}},
+{"id":"disclose-lie","kind":"disclosure","subject":"e","at":10}
+]}
