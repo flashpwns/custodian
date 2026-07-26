@@ -17,6 +17,20 @@ This is a concrete simulation rule, not a storytelling preference: an unseen
 structural failure can change the objective projection now and be discovered later
 through its simulated consequences.
 
+## Deterministic timeline
+
+The timeline advances to an explicit simulation time. Before the runtime accepts a
+new action or renders a perspective at that time, it resolves all scheduled work
+that is due. Entries share a total order: `simulation_time`, then phase
+(`scheduled`, `action`, `consequence`, `observation`, `narration`), then priority,
+then stable identifier. Concurrent actions are not made simultaneous by accident;
+their deterministic order is part of the simulation record.
+
+Observation records a path from an existing event. Narration cites committed event
+identifiers. Neither is allowed to create an objective change. See the executable
+[`reference timeline`](reference/timeline.js) and the
+[`simulation timeline example`](../examples/simulation-timeline/README.md).
+
 ## Contract surface
 
 - [`contracts/event-envelope.schema.json`](contracts/event-envelope.schema.json)
@@ -27,6 +41,10 @@ through its simulated consequences.
   defines the provenance required before knowledge can enter an observer view.
 - [`contracts/narrative-revelation.schema.json`](contracts/narrative-revelation.schema.json)
   defines a perspective-bounded rendering input.
+- [`contracts/scheduled-event.schema.json`](contracts/scheduled-event.schema.json)
+  defines a durable, causally-owned delayed consequence.
+- [`contracts/action-envelope.schema.json`](contracts/action-envelope.schema.json)
+  defines an action's deterministic timeline position.
 
 An implementation can add typed domain events, but each must fit inside the event
 envelope and have an explicit owner and compatibility policy.

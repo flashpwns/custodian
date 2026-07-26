@@ -19,3 +19,8 @@ changes persist, beliefs can conflict, knowledge requires a valid path, and a
 perspective changes revelation rather than reality. A production runtime should
 replace the narrow structural assertions with a full Draft 2020-12 validator while
 keeping the same fixture contract.
+
+The simulation-time fixture executes the reference timeline twice and verifies
+identical replay, scheduled consequences without observers, stable concurrent
+ordering, unchanged time across perspectives, and narration's causal-history
+boundary.

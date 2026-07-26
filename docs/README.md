@@ -5,6 +5,8 @@ weakening persistence or continuity.
 
 - [`architecture/overview.md`](architecture/overview.md) defines components,
   ownership, and the session lifecycle.
+- [`architecture/simulation-time.md`](architecture/simulation-time.md) defines
+  deterministic progression, scheduling, concurrency, and replay.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
