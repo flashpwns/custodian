@@ -1,5 +1,8 @@
 # Contributing to Custodian
 
+Custodian consists of the Constitutional Kernel, its World Pack API, and reference
+world packs. Changes should preserve that boundary.
+
 Start by deciding which boundary your change belongs to.
 
 | Change | Home | Required evidence |

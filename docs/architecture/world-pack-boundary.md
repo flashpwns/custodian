@@ -1,7 +1,8 @@
 # World-pack boundary
 
-Custodian owns event commitment, ordering, reduction, projection, provenance, and
-constitutional information boundaries. A world pack declares identity, version,
+The Custodian Constitutional Kernel owns event commitment, ordering, reduction,
+projection, provenance, and constitutional information boundaries. The World Pack
+API lets a world pack declare identity, version,
 kernel compatibility, initial objective state, vocabulary, templates, topology,
 resources, hazards, affordances, scenarios, and registered deterministic rule
 names.

@@ -1,6 +1,7 @@
 # Canon
 
-A world pack supplies the setting-specific knowledge used by Custodian. It is a
+A world pack supplies the setting-specific knowledge through Custodian's World
+Pack API. It is a
 versioned collection of claims, constraints, entities, places, and narrative
 guidance; it is not a database of player-session truth.
 
@@ -22,4 +23,5 @@ pack directly, `derived` claims record a reasoned interpretation, and
 `interpretive` claims make an explicit simulation choice. Confidence expresses the
 maintainer's support for a claim, not an observer's belief.
 
-The first reference pack is [`kane-pixels-backrooms/`](kane-pixels-backrooms/README.md).
+The first reference world pack is
+[`kane-pixels-backrooms/`](kane-pixels-backrooms/README.md).
