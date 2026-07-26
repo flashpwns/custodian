@@ -12,6 +12,11 @@ and a pure constitutional decision evaluator that produces agency proposals.
 Narration, dialogue, personality simulation, scene composition, and free-form
 reasoning remain outside the kernel.
 
+Milestone 13 completes the constitutional loop with pure action execution and
+world-pack-declared effects materialized into canonical replay events. Rendering,
+dialogue, personality, planning expansion, and free-form reasoning remain outside
+the kernel.
+
 Remaining kernel work after perception is limited to deterministic rule/effect
 resolution hardening, world-pack extension compatibility, durable persistence and
 migration operations, and replay/invariant hardening. Product UI, LLM rendering,

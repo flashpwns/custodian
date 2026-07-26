@@ -27,3 +27,7 @@ perception event may store its successful result only in
 The decision evaluator is not a reducer. It reads a pinned objective projection
 and explicitly supplied observer-local state, then returns proposals for the
 agency domain to commit.
+
+The action executor is not a reducer either. It returns validated execution
+results and effect requests; canonical replay remains the only writer of effect
+domains.

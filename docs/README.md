@@ -33,6 +33,8 @@ and Reference World Packs fit together without weakening persistence or continui
   defines projection-pinned observer-local perceptual acquisition.
 - [`architecture/epistemic-decision-pipeline.md`](architecture/epistemic-decision-pipeline.md)
   defines provenance-bounded knowledge, belief revision, and pure action proposals.
+- [`architecture/action-execution.md`](architecture/action-execution.md) defines
+  deterministic world-pack execution and canonical effect materialization.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
