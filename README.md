@@ -68,6 +68,15 @@ projection, then produces a response grounded in that result.
 5. Author a new setting as a world pack; do not fork the runtime to encode setting
    facts.
 
+## Reference kernel
+
+Custodian now includes a deterministic reference kernel and a deliberately small
+generic world pack. Run `npm test` for all validation, `npm run validate` for
+canonical contract/projection checks, and `npm run demo` for a structured two-room
+simulation and replay comparison. Perception, sensors, attention, scene
+projection, disclosure policy, narration, and LLM rendering are intentionally not
+implemented yet.
+
 ## Scope and non-goals
 
 Custodian specifies the durable boundary between an engine and a world pack. It
