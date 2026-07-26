@@ -1,0 +1,7 @@
+{
+  "name": "minimal session projection",
+  "events": "../../examples/minimal-session/events.json",
+  "expected_state": "../../examples/minimal-session/state.json",
+  "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
+  "expected_projected_through": 2
+}

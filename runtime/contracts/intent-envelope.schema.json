@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://custodian.dev/schemas/runtime/intent-envelope/v1",
+  "title": "Custodian Intent Envelope v1",
+  "description": "A request to change a session; it is not itself a durable fact.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["intent_id", "session_id", "actor_id", "kind", "submitted_at", "payload"],
+  "properties": {
+    "intent_id": { "type": "string", "format": "uuid" },
+    "session_id": { "type": "string", "minLength": 1 },
+    "actor_id": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]+@v[1-9][0-9]*$" },
+    "submitted_at": { "type": "string", "format": "date-time" },
+    "expected_sequence": { "type": "integer", "minimum": 0 },
+    "payload": { "type": "object" }
+  }
+}

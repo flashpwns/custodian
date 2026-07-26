@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "demo-session-001",
+  "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
+  "projected_through": 2,
+  "entities": { "explorer-01": { "kind": "participant" } },
+  "facts": [
+    {
+      "id": "ambient-light-01",
+      "claim": "A steady electrical hum is audible.",
+      "status": "observed",
+      "source_event": "22222222-2222-4222-8222-222222222222"
+    }
+  ],
+  "world_state": {}
+}
