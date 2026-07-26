@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/obligation/v1","type":"object","required":["id","agent","source","requirement"],"properties":{"id":{"type":"string"},"agent":{"type":"string"},"source":{"type":"string"},"requirement":{"type":"string"}}}

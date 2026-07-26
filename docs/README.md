@@ -17,6 +17,8 @@ weakening persistence or continuity.
   defines trust, testimony, and emergent reputation.
 - [`architecture/communication-deception.md`](architecture/communication-deception.md)
   defines deterministic, perspective-bounded messaging.
+- [`architecture/planning-commitments.md`](architecture/planning-commitments.md)
+  defines contingent planning and commitments.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
