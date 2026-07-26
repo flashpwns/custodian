@@ -1,6 +1,8 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
+const Ajv2020 = require("ajv/dist/2020");
+const addFormats = require("ajv-formats");
 
 const root = path.resolve(__dirname, "..");
 
@@ -28,6 +30,9 @@ for (const file of contracts) {
 }
 
 const sessionSchema = JSON.parse(fs.readFileSync(path.join(root, "state/schemas/session-state.schema.json"), "utf8"));
+const ajv = new Ajv2020({ allErrors: true, strict: false });
+addFormats(ajv);
+const validateSession = ajv.compile(sessionSchema);
 assert.equal(sessionSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
 assert.equal(sessionSchema.properties.schema_version.const, "10.0.0");
 assert.ok(sessionSchema.required.includes("environment"));
@@ -36,6 +41,7 @@ for (const relative of ["examples/minimal-session/state.json", "examples/knowled
   const state = JSON.parse(fs.readFileSync(path.join(root, relative), "utf8"));
   assert.equal(state.schema_version, "10.0.0", `${relative} must be migrated to v10`);
   assert.deepEqual(Object.keys(state.environment).sort(), ["conditions", "damage", "hazards", "topology_history"]);
+  assert.ok(validateSession(state), `${relative} must validate against session-state: ${ajv.errorsText(validateSession.errors)}`);
 }
 
 console.log(`validated ${artifacts.length} JSON artifacts and ${contracts.length} runtime contracts`);
