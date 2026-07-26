@@ -2,9 +2,12 @@
 
 Agents keep goals, intentions, plans, and decision context in epistemic state. A
 proposal is a request, not an outcome. The deterministic executor orders proposals
-by simulation time, priority, and stable identifier; evaluates objective
-constraints; then records a success, failure, delay, or interruption.
+by simulation time, priority, and stable identifier; evaluates declarative
+world-pack constraints; then returns a versioned success, failure, partial success,
+blocked, or invalid execution result.
 
-Only successful execution emits a committed objective event. A failed or
-interrupted proposal remains in the decision history and leaves the objective
-projection unchanged. This preserves both agency and a world that can refuse it.
+The kernel materializes the result and world-pack effect requests as canonical
+events. Replay applies those events; the executor never applies them itself. A
+failed or blocked proposal may still emit objective evidence, while its requested
+material change remains absent. This preserves both agency and a world that can
+refuse it.

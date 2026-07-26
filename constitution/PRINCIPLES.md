@@ -139,6 +139,13 @@ to return structured action proposals. It **MUST NOT** mutate state, resolve tru
 create narration, or commit an outcome. Only a later agency event makes a proposal
 durable.
 
+Action execution **MUST** be pure and deterministic over a pinned objective
+projection, committed proposal, and compatible world-pack rule set. A world pack
+MAY declare constraints and typed effects, but it **MUST NOT** mutate state.
+Execution results **MUST** record deterministic status, reason, causal provenance,
+and generated effects. Effects **MUST** be materialized as canonical events and
+applied only through replay; an executor **MUST NOT** apply them directly.
+
 ## 11. Version public contracts
 
 Public schemas, event types, and world packs **MUST** carry versions. Breaking

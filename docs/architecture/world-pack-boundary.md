@@ -7,8 +7,10 @@ kernel compatibility, initial objective state, vocabulary, templates, topology,
 resources, hazards, affordances, scenarios, and registered deterministic rule
 names.
 
-A world pack may request declared proposals, effects, scheduled work, or canonical
-events through the kernel. It may not mutate projections directly, bypass reducer
+A world pack may declare deterministic execution rules: preconditions, exclusive
+conflict keys, outcome reasons, and typed effect requests. The kernel validates
+and materializes those requests as canonical events. A world pack may not mutate
+projections directly, bypass reducer
 ownership, create observer knowledge automatically, create narration as truth,
 depend on ambient I/O, or use uncontrolled randomness during reduction.
 
