@@ -22,12 +22,18 @@ for (const file of artifacts) {
 }
 
 const contracts = jsonFiles(path.join(root, "runtime/contracts"));
+const contractAjv = new Ajv2020({ allErrors: true, strict: false });
+addFormats(contractAjv);
+const contractSchemas = [];
 for (const file of contracts) {
   const schema = JSON.parse(fs.readFileSync(file, "utf8"));
   assert.equal(schema.$schema, "https://json-schema.org/draft/2020-12/schema", `${path.basename(file)} must declare Draft 2020-12`);
   assert.match(schema.$id, /^https:\/\/custodian\.dev\/schemas\/runtime\/.+\/v[1-9][0-9]*$/, `${path.basename(file)} must have a versioned runtime id`);
   assert.equal(schema.type, "object", `${path.basename(file)} must define an object contract`);
+  contractSchemas.push(schema);
 }
+for (const schema of contractSchemas) contractAjv.addSchema(schema);
+for (const schema of contractSchemas) assert.ok(contractAjv.getSchema(schema.$id), `${schema.$id} must compile`);
 
 const sessionSchema = JSON.parse(fs.readFileSync(path.join(root, "state/schemas/session-state.schema.json"), "utf8"));
 const ajv = new Ajv2020({ allErrors: true, strict: false });

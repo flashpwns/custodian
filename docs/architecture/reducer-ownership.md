@@ -2,7 +2,8 @@
 
 **Normative.** Reducers consume canonical events in canonical order. Their
 declared domains are `time`, `agency`, `environment`, `resources`, `evidence`,
-`communication`, `planning`, `memory`, `relationships`, and `epistemic`.
+`communication`, `planning`, `memory`, `relationships`, `epistemic`, and
+`perception`.
 
 | Domain | Owns | Cannot directly write |
 | --- | --- | --- |
@@ -16,6 +17,9 @@ declared domains are `time`, `agency`, `environment`, `resources`, `evidence`,
 | Memory | agent-local recollection | committed history |
 | Relationships | agent-local social evaluation | objective history |
 | Epistemic | knowledge and beliefs | objective state |
+| Perception | observer-local acquired observations | objective state or knowledge |
 
-Future perception is read-only: it consumes a pinned objective projection and
-authorized local state, then produces no kernel mutation.
+The observation evaluator is read-only: it consumes a pinned objective projection,
+an observation request, and explicit observer context. A separate committed
+perception event may store its successful result only in
+`state.local.perceptions[observer_id]`.
