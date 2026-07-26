@@ -31,6 +31,15 @@ identifiers. Neither is allowed to create an objective change. See the executabl
 [`reference timeline`](reference/timeline.js) and the
 [`simulation timeline example`](../examples/simulation-timeline/README.md).
 
+## Evidence propagation
+
+Evidence is objective state, not a narrator's retrospective explanation. The
+runtime records its objective origin, form, completeness, fidelity, availability,
+and any destruction event. An information path declares whether an observer read
+an evidence object or directly perceived an event; evidence-derived knowledge is
+limited to the claims retained by that object. A forgery can influence belief but
+never changes the underlying objective fact.
+
 ## Contract surface
 
 - [`contracts/event-envelope.schema.json`](contracts/event-envelope.schema.json)
@@ -45,6 +54,8 @@ identifiers. Neither is allowed to create an objective change. See the executabl
   defines a durable, causally-owned delayed consequence.
 - [`contracts/action-envelope.schema.json`](contracts/action-envelope.schema.json)
   defines an action's deterministic timeline position.
+- [`contracts/evidence.schema.json`](contracts/evidence.schema.json) defines a
+  durable recording, artifact, trace, sensor output, or record.
 
 An implementation can add typed domain events, but each must fit inside the event
 envelope and have an explicit owner and compatibility policy.

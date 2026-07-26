@@ -1,5 +1,5 @@
 {
-  "schema_version": "3.0.0",
+  "schema_version": "4.0.0",
   "session_id": "demo-session-001",
   "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
   "projected_through": 2,
@@ -7,13 +7,14 @@
   "timeline": { "resolution_policy": "time-phase-priority-stable-id@v1", "pending": [] },
   "entities": { "explorer-01": { "kind": "participant" } },
   "objective_reality": { "facts": [] },
+  "evidence": [],
   "information_paths": [
     {
       "id": "path-ambient-light-01",
-      "source_event": "22222222-2222-4222-8222-222222222222",
+      "source": { "kind": "event", "id": "22222222-2222-4222-8222-222222222222" },
       "delivery_event": "22222222-2222-4222-8222-222222222222",
       "recipient_id": "explorer-01",
-      "modality": "direct_sense",
+      "channel": "direct_sense",
       "delivered_at": 60000,
       "reliability": 0.8
     }

@@ -1,17 +1,24 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://custodian.dev/schemas/runtime/information-path/v1",
-  "title": "Custodian Information Path v1",
-  "description": "A recorded route by which a source event becomes available to one observer.",
+  "$id": "https://custodian.dev/schemas/runtime/information-path/v2",
+  "title": "Custodian Information Path v2",
+  "description": "A recorded direct or evidence-mediated route by which information reaches one observer.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "source_event", "delivery_event", "recipient_id", "modality", "delivered_at", "reliability"],
+  "required": ["id", "source", "delivery_event", "recipient_id", "channel", "delivered_at", "reliability"],
   "properties": {
     "id": { "type": "string", "minLength": 1 },
-    "source_event": { "type": "string", "format": "uuid" },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "enum": ["event", "evidence"] },
+        "id": { "type": "string", "minLength": 1 }
+      }
+    },
     "delivery_event": { "type": "string", "format": "uuid" },
     "recipient_id": { "type": "string", "minLength": 1 },
-    "modality": { "enum": ["direct_sense", "instrument", "message", "record", "testimony"] },
+    "channel": { "enum": ["direct_sense", "instrument", "recording_reader", "artifact_inspection", "trace_inspection", "sensor_console", "archive"] },
     "delivered_at": { "type": "integer", "minimum": 0 },
     "reliability": { "type": "number", "minimum": 0, "maximum": 1 }
   }

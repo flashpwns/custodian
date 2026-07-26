@@ -92,26 +92,44 @@ Generated narrative **MUST NOT** silently create, alter, or erase durable facts.
 Only committed events can do so. Rendering **SHOULD** cite the relevant state and
 canon context internally so it remains constrained by the simulation outcome.
 
-## 8. Favor replay over convenience
+## 8. Preserve evidence and bound its propagation
+
+**Evidence is objective reality made durable.** A recording, artifact,
+environmental trace, sensor output, or durable record is an objective entity with
+an origin, creation time, availability, and fidelity. Evidence **MUST** persist
+independently of observers unless an objective event destroys or alters it.
+
+An observer may directly perceive reality or indirectly perceive evidence through
+a named information channel. Indirect knowledge **MUST** name the evidence object
+and remain bounded by its recorded completeness, fidelity, and availability. A
+missing, damaged, partial, or destroyed record **MUST NOT** support knowledge beyond
+what it objectively retains.
+
+Forged evidence is itself an objective fact, but its claim **MUST NOT** modify the
+objective fact it purports to describe. It may support an attributed, incorrect
+belief. Evidence access, destruction, and propagation **MUST** be part of the
+replayable causal history.
+
+## 9. Favor replay over convenience
 
 Equivalent inputs, pinned dependencies, and declared random outcomes **SHOULD**
 produce equivalent event streams. Nondeterministic dependencies **MUST** be
 identified at the adapter boundary and recorded whenever they affect state.
 
-## 9. Version public contracts
+## 10. Version public contracts
 
 Public schemas, event types, and world packs **MUST** carry versions. Breaking
 changes **MUST** provide migration or an intentional incompatibility boundary.
 Silent reinterpretation of saved sessions is prohibited.
 
-## 10. Protect players and source material
+## 11. Protect players and source material
 
 Deployments **MUST** have an explicit policy for sensitive content, privacy, and
 operator intervention. World packs **MUST NOT** redistribute source material
 without permission. Attribution, transformation, and original additions must be
 clear enough for maintainers to review.
 
-## 11. Test observable promises
+## 12. Test observable promises
 
 Every externally observable contract change **MUST** have a fixture or automated
 test. Tests should prefer behavior at boundaries—input, event, projection, and

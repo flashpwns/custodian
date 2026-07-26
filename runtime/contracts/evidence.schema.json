@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://custodian.dev/schemas/runtime/evidence/v1",
+  "title": "Custodian Evidence v1",
+  "description": "Objective, durable material that may support indirect observation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "origin_event", "created_at", "availability", "completeness", "fidelity", "provenance", "claims"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "kind": { "enum": ["recording", "artifact", "environmental_trace", "sensor_output", "durable_record"] },
+    "origin_event": { "type": "string", "format": "uuid" },
+    "created_at": { "type": "integer", "minimum": 0 },
+    "availability": { "enum": ["available", "damaged", "destroyed"] },
+    "destroyed_by": { "type": "string", "format": "uuid" },
+    "completeness": { "type": "number", "minimum": 0, "maximum": 1 },
+    "fidelity": { "type": "number", "minimum": 0, "maximum": 1 },
+    "provenance": { "enum": ["captured", "collected", "generated", "forged"] },
+    "claims": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+  }
+}

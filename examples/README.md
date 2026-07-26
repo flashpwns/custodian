@@ -9,6 +9,8 @@ without requiring a particular language runtime or provider.
   reality, conflicting beliefs, information paths, and perspective boundaries.
 - [`simulation-timeline/`](simulation-timeline/README.md) demonstrates scheduled
   consequences, deterministic concurrency, replay, and causal narration.
+- [`evidence-propagation/`](evidence-propagation/README.md) demonstrates durable
+  records, indirect observation, destruction, bounded knowledge, and forgery.
 
 Examples are intentionally fictional and do not assert new canon for any world
 pack.
