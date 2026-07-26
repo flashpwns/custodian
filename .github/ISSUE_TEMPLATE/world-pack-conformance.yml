@@ -1,0 +1,28 @@
+name: World-pack conformance
+description: Report a declarative pack validation issue.
+body:
+  - type: input
+    id: custodian_version
+    attributes:
+      label: Custodian version
+    validations:
+      required: true
+  - type: input
+    id: manifest_version
+    attributes:
+      label: World-pack manifest version
+    validations:
+      required: true
+  - type: input
+    id: scenario_version
+    attributes:
+      label: Scenario contract version
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Conformance error codes and minimal reproduction
+      description: Do not paste sensitive or copyrighted world-pack content.
+    validations:
+      required: true

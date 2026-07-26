@@ -1,0 +1,15 @@
+name: Documentation
+description: Report inaccurate or missing documentation.
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or path
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Suggested correction
+    validations:
+      required: true
