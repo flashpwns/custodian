@@ -4,10 +4,11 @@ Custodian is a reusable framework for persistent, canon-aware narrative simulati
 It separates the rules that make a simulation durable—events, state, continuity,
 and adjudication—from the setting-specific material that gives a world its voice.
 
-The first canonical world is **Kane Pixels Backrooms**: a constrained, archival
-simulation of an anomalous space, its exploration, and the records created around
-it. It is a reference implementation of Custodian, not a replacement for the
-source material.
+Custodian is organized as a **Constitutional Kernel**, a versioned **World Pack
+API**, and independently versioned **Reference World Packs**. The first reference
+world pack is **Kane Pixels Backrooms**: a constrained, archival simulation of an
+anomalous space, its exploration, and the records created around it. It is a
+reference implementation of Custodian, not a replacement for the source material.
 
 > **Status:** constitutional reference architecture. The repository provides
 > deterministic reference executors and fixtures for knowledge, time, evidence,
@@ -37,12 +38,22 @@ be replayed. Custodian treats those seams as first-class design constraints.
 | Path | Responsibility |
 | --- | --- |
 | [`constitution/`](constitution/README.md) | Non-negotiable engineering and narrative principles. |
-| [`runtime/`](runtime/README.md) | World-agnostic execution contracts and event protocol. |
+| [`runtime/`](runtime/README.md) | Constitutional Kernel execution contracts and event protocol. |
 | [`state/`](state/README.md) | Durable session projection model and JSON schemas. |
-| [`canon/`](canon/README.md) | World packs, evidence, continuity policy, and the Backrooms reference world. |
+| [`canon/`](canon/README.md) | World Pack API content and reference world packs. |
 | [`examples/`](examples/README.md) | Small, inspectable examples of valid Custodian artifacts. |
 | [`tests/`](tests/README.md) | Contract fixtures and the validation strategy. |
 | [`docs/`](docs/README.md) | Architecture, authoring, and operational documentation. |
+
+## Architecture identity
+
+```text
+Custodian
+└── Constitutional Kernel
+    ├── World Pack API
+    └── Reference World Packs
+        └── Kane Pixels Backrooms (first reference pack)
+```
 
 ## Core model
 

@@ -7,6 +7,11 @@ perspective query. It deliberately does not add attention, sensors beyond
 declared capability, scene composition, disclosure policy, or prose. Narrative
 prose remains an adapter concern.
 
+Milestone 12 adds immutable knowledge acquisition, append-only belief revision,
+and a pure constitutional decision evaluator that produces agency proposals.
+Narration, dialogue, personality simulation, scene composition, and free-form
+reasoning remain outside the kernel.
+
 Remaining kernel work after perception is limited to deterministic rule/effect
 resolution hardening, world-pack extension compatibility, durable persistence and
 migration operations, and replay/invariant hardening. Product UI, LLM rendering,

@@ -21,6 +21,12 @@ source event, delivery event, recipient, modality, simulation time, and reliabil
 A path can produce perception or knowledge. A projector rejects knowledge whose
 path is missing, addressed to another observer, or temporally impossible.
 
+The canonical runtime records knowledge through an immutable acquisition event.
+Its provenance names a prior perception, trusted communication, validated
+evidence, or objective record and that source must be causally prior. Belief is
+separate append-only interpretation history; correction records a revision rather
+than replacing an older belief.
+
 ## Canon authority
 
 Canon constrains objective adjudication; it does not make a character omniscient.

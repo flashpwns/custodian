@@ -8,6 +8,11 @@ const observationRequestSchema = require("./contracts/observation-request.schema
 const observerContextSchema = require("./contracts/observer-context.schema.json");
 const observationResultSchema = require("./contracts/observation-result.schema.json");
 const perceptionRecordSchema = require("./contracts/perception-record.schema.json");
+const knowledgeRecordSchema = require("./contracts/knowledge-record.schema.json");
+const beliefRecordSchema = require("./contracts/belief-record.schema.json");
+const decisionRequestSchema = require("./contracts/decision-request.schema.json");
+const decisionResultSchema = require("./contracts/decision-result.schema.json");
+const actionProposalSchema = require("./contracts/action-proposal.schema.json");
 const projectionSchema = require("../state/schemas/objective-projection.schema.json");
 const worldPackSchema = require("./contracts/world-pack.schema.json");
 
@@ -16,11 +21,17 @@ const phases = Object.freeze({ scheduled: 0, action: 1, consequence: 2, informat
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
 ajv.addSchema(observationResultSchema);
+ajv.addSchema(actionProposalSchema);
 const validateEvent = ajv.compile(eventSchema);
 const validateObservationRequest = ajv.compile(observationRequestSchema);
 const validateObserverContext = ajv.compile(observerContextSchema);
 const validateObservationResult = ajv.compile(observationResultSchema);
 const validatePerceptionRecord = ajv.compile(perceptionRecordSchema);
+const validateKnowledgeRecord = ajv.compile(knowledgeRecordSchema);
+const validateBeliefRecord = ajv.compile(beliefRecordSchema);
+const validateDecisionRequest = ajv.compile(decisionRequestSchema);
+const validateDecisionResult = ajv.compile(decisionResultSchema);
+const validateActionProposal = ajv.compile(actionProposalSchema);
 const validateProjection = ajv.compile(projectionSchema);
 const validateWorldPack = ajv.compile(worldPackSchema);
 
@@ -60,7 +71,10 @@ function apply(state, event) {
   const next = structuredClone(state);
   const p = event.payload;
   if (event.domain === "time") next.objective.timeline = { ...(next.objective.timeline ?? {}), ...p };
-  if (event.domain === "agency") next.objective.actions = [...(next.objective.actions ?? []), { id: event.id, ...p }];
+  if (event.domain === "agency") {
+    if (event.type === "agency.action.proposed") valid(validateActionProposal, p, "invalid_action_proposal");
+    next.objective.actions = [...(next.objective.actions ?? []), { id: event.id, ...p }];
+  }
   if (event.domain === "environment") next.objective.environment = { ...(next.objective.environment ?? {}), ...p };
   if (event.domain === "resources") next.objective.resources = { ...(next.objective.resources ?? {}), ...p };
   if (event.domain === "evidence") next.objective.evidence = [...(next.objective.evidence ?? []), { id: event.id, ...p }];
@@ -68,7 +82,20 @@ function apply(state, event) {
   if (event.domain === "planning") next.local.plans[p.agent] = [...(next.local.plans[p.agent] ?? []), p];
   if (event.domain === "memory") next.local.memories[p.agent] = [...(next.local.memories[p.agent] ?? []), p];
   if (event.domain === "relationships") next.local.relationships[p.agent] = [...(next.local.relationships[p.agent] ?? []), p];
-  if (event.domain === "epistemic") next.local[p.kind][p.agent] = [...(next.local[p.kind][p.agent] ?? []), p];
+  if (event.domain === "epistemic") {
+    if (event.type === "epistemic.knowledge.acquired") {
+      valid(validateKnowledgeRecord, p, "invalid_knowledge_record");
+      if (p.observer !== p.agent && p.agent !== undefined) fail("invalid_knowledge_record", "agent must match observer");
+      if (!event.causal_parents.includes(p.provenance.source_event)) fail("invalid_knowledge_provenance", p.provenance.source_event);
+      const sourceExists = [...(next.local.perceptions[p.observer] ?? []), ...(next.objective.evidence ?? []), ...(next.objective.messages ?? [])].some((item) => item.id === p.provenance.source_id);
+      if (!sourceExists) fail("invalid_knowledge_provenance", p.provenance.source_id);
+      next.local.knowledge[p.observer] = [...(next.local.knowledge[p.observer] ?? []), p];
+    } else if (event.type === "epistemic.belief.formed" || event.type === "epistemic.belief.revised") {
+      valid(validateBeliefRecord, p, "invalid_belief_record");
+      if (event.type === "epistemic.belief.revised" && !(next.local.beliefs[p.observer] ?? []).some((belief) => belief.id === p.supersedes)) fail("invalid_belief_revision", p.supersedes ?? "missing");
+      next.local.beliefs[p.observer] = [...(next.local.beliefs[p.observer] ?? []), p];
+    } else next.local[p.kind][p.agent] = [...(next.local[p.kind][p.agent] ?? []), p];
+  }
   if (event.domain === "perception") {
     valid(validatePerceptionRecord, p, "invalid_perception_record");
     if (p.result.status !== "observed") fail("invalid_perception_record", "only observed results may be committed");
@@ -126,4 +153,16 @@ function projectPerspective(projection, state, observer) {
     .map((record) => structuredClone(record));
   return { projection_identity: projection.identity, observer, perceptions };
 }
-module.exports = { ORDERING_POLICY, compareEvents, reducerDefinitions, stable, digest, replay, objectiveProjection, initialState, evaluateObservation, projectPerspective, fail };
+function rejectedDecision(request, code) { return { observer: typeof request?.observer === "string" ? request.observer : "", projection_identity: typeof request?.projection_identity === "string" ? request.projection_identity : "", proposals: [], rejection: code }; }
+function evaluateDecision(projection, request, observerState) {
+  if (!validateProjection(projection)) return rejectedDecision(request, "invalid_objective_projection");
+  if (!validateDecisionRequest(request)) return rejectedDecision(request, "invalid_decision_request");
+  if (request.projection_identity !== projection.identity) return rejectedDecision(request, "projection_mismatch");
+  const local = observerState ?? {};
+  const propositions = new Set([...(local.perceptions ?? []).map((entry) => entry.result?.content), ...(local.knowledge ?? []).map((entry) => entry.proposition), ...(local.beliefs ?? []).map((entry) => entry.proposition)]);
+  const selected = [...request.goals].sort((a, b) => b.priority - a.priority || a.id.localeCompare(b.id)).find((goal) => !goal.requires_proposition || propositions.has(goal.requires_proposition));
+  const result = { observer: request.observer, projection_identity: projection.identity, proposals: selected ? [{ id: `proposal-${digest({ observer: request.observer, projection: projection.identity, goal: selected.id, intent: selected.intent, plans: request.plans })}`, agent_id: request.observer, goal_id: selected.id, at: projection.simulation_time, priority: selected.priority, intent: selected.intent, decision_context: { projection_identity: projection.identity, knowledge_count: (local.knowledge ?? []).length, belief_count: (local.beliefs ?? []).length, perception_count: (local.perceptions ?? []).length }, ...(request.plans[0]?.id ? { plan_id: request.plans[0].id } : {}) }] : [] };
+  valid(validateDecisionResult, result, "invalid_decision_result");
+  return result;
+}
+module.exports = { ORDERING_POLICY, compareEvents, reducerDefinitions, stable, digest, replay, objectiveProjection, initialState, evaluateObservation, projectPerspective, evaluateDecision, fail };

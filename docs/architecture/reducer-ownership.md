@@ -16,10 +16,14 @@ declared domains are `time`, `agency`, `environment`, `resources`, `evidence`,
 | Planning | agent-local plans and commitments | physical effects |
 | Memory | agent-local recollection | committed history |
 | Relationships | agent-local social evaluation | objective history |
-| Epistemic | knowledge and beliefs | objective state |
+| Epistemic | provenance-bounded knowledge and belief history | objective state |
 | Perception | observer-local acquired observations | objective state or knowledge |
 
 The observation evaluator is read-only: it consumes a pinned objective projection,
 an observation request, and explicit observer context. A separate committed
 perception event may store its successful result only in
 `state.local.perceptions[observer_id]`.
+
+The decision evaluator is not a reducer. It reads a pinned objective projection
+and explicitly supplied observer-local state, then returns proposals for the
+agency domain to commit.

@@ -1,7 +1,7 @@
 # Documentation
 
-This directory explains how Custodian fits together and how to extend it without
-weakening persistence or continuity.
+This directory explains how the Custodian Constitutional Kernel, World Pack API,
+and Reference World Packs fit together without weakening persistence or continuity.
 
 - [`architecture/overview.md`](architecture/overview.md) defines components,
   ownership, and the session lifecycle.
@@ -27,7 +27,12 @@ weakening persistence or continuity.
   [`architecture/migrations-compatibility.md`](architecture/migrations-compatibility.md)
   define the canonical kernel lifecycle, purity, projection, and compatibility.
 - [`architecture/world-pack-boundary.md`](architecture/world-pack-boundary.md)
-  defines the boundary between constitutional mechanics and world content.
+  defines the World Pack API boundary between constitutional mechanics and world
+  content.
+- [`architecture/perception-projection.md`](architecture/perception-projection.md)
+  defines projection-pinned observer-local perceptual acquisition.
+- [`architecture/epistemic-decision-pipeline.md`](architecture/epistemic-decision-pipeline.md)
+  defines provenance-bounded knowledge, belief revision, and pure action proposals.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
