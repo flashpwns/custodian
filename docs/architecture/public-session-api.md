@@ -29,3 +29,7 @@ seed material, and an optional projection identity cache. Restore validates the
 envelope and pack, replays history, verifies cache identity, and rejects corrupted
 or incompatible input deterministically. Knowledge and belief templates remain
 predeclared work; this public layer does not define acquisition or revision policy.
+
+The package root is the public import boundary. See
+[external world-pack conformance](world-pack-conformance.md) for the published
+surface, compatibility validation, and external-pack workflow.

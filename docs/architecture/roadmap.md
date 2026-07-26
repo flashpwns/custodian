@@ -25,6 +25,14 @@ Milestone 15 adds the Public Session API and declarative World-Pack Runtime
 Adapter. Future CLI, service, UI, scenario-tool, and LLM adapters consume this
 boundary rather than internal kernel modules.
 
+Milestone 16 establishes the external-pack conformance and package boundary:
+independently located declarative packs validate through public contracts and
+can create, advance, export, restore, and continue sessions without importing
+kernel internals. It is framework completion, not package publication, a
+starter SDK, a gameplay CLI, narration, or executable plugins. Milestone 16.5
+may address authoring ergonomics and release presentation; `v1.0.0` requires an
+explicit release decision.
+
 Remaining kernel work after perception is limited to deterministic rule/effect
 resolution hardening, world-pack extension compatibility, durable persistence and
 migration operations, and replay/invariant hardening. Product UI, LLM rendering,

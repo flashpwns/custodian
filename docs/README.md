@@ -39,6 +39,12 @@ and Reference World Packs fit together without weakening persistence or continui
   defines deterministic tick scheduling and simulation completion.
 - [`architecture/public-session-api.md`](architecture/public-session-api.md)
   defines the stable external session and persistence boundary.
+- [`architecture/world-pack-conformance.md`](architecture/world-pack-conformance.md)
+  defines external declarative-pack validation, the supported package surface,
+  and the deliberately narrow local conformance command.
+- [`architecture/release-compatibility.md`](architecture/release-compatibility.md)
+  defines compatibility dimensions, migration/deprecation policy, security
+  boundary, and release-candidate checks.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 

@@ -159,6 +159,14 @@ errors. It **MUST NOT** expose mutable reducer state or absorb Director, replay,
 or world-pack authority. The World-Pack Runtime Adapter **MUST** accept only
 validated declarative content and **MUST NOT** execute arbitrary pack code.
 
+The published package root **MUST** be the only supported external runtime import
+surface. Conformance **MUST** validate a declarative world pack through public
+contracts without importing reducers, the Director, or replay mutation helpers.
+The local conformance command MAY read explicitly named JSON files but **MUST
+NOT** discover remote content, install dependencies, execute pack code, or grant
+filesystem or network authority to a pack. Public durable outputs that promise
+canonical bytes **MUST** use stable serialization.
+
 ## 11. Version public contracts
 
 Public schemas, event types, and world packs **MUST** carry versions. Breaking
