@@ -31,3 +31,7 @@ agency domain to commit.
 The action executor is not a reducer either. It returns validated execution
 results and effect requests; canonical replay remains the only writer of effect
 domains.
+
+The Constitutional Director is not a reducer or authority. It orders observers
+and phases, composes evaluators, and commits their canonical outputs; it cannot
+interpret world state or write a domain directly.

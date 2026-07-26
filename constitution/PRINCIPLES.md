@@ -146,6 +146,13 @@ Execution results **MUST** record deterministic status, reason, causal provenanc
 and generated effects. Effects **MUST** be materialized as canonical events and
 applied only through replay; an executor **MUST NOT** apply them directly.
 
+The Constitutional Director **MUST** advance simulation through a documented,
+fixed tick lifecycle and explicit observer ordering. It **MUST** orchestrate
+existing constitutional components without interpreting world state, creating
+epistemic state, creating proposals/effects, or directly mutating any state.
+An idle Director tick **MUST NOT** append events and may report completion only
+when no proposals, scheduled work, or pending effects remain.
+
 ## 11. Version public contracts
 
 Public schemas, event types, and world packs **MUST** carry versions. Breaking

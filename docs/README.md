@@ -35,6 +35,8 @@ and Reference World Packs fit together without weakening persistence or continui
   defines provenance-bounded knowledge, belief revision, and pure action proposals.
 - [`architecture/action-execution.md`](architecture/action-execution.md) defines
   deterministic world-pack execution and canonical effect materialization.
+- [`architecture/constitutional-director.md`](architecture/constitutional-director.md)
+  defines deterministic tick scheduling and simulation completion.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
