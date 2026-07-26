@@ -21,6 +21,10 @@ new canon.
   the source does not resolve it.
 - Do not present this fan-made pack as official, authorized, or exhaustive.
 
+The pack's authority posture is recorded in [`manifest.json`](manifest.json). Its
+canon constraints are used only when resolving objective reality; they never permit
+a narrator to reveal a source fact that the active perspective has not received.
+
 ## Pack layout
 
 Future revisions may add `claims/`, `entities/`, `locations/`, `constraints/`, and

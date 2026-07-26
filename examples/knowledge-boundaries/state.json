@@ -1,0 +1,32 @@
+{
+  "schema_version": "2.0.0",
+  "session_id": "knowledge-boundaries-001",
+  "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
+  "projected_through": 7,
+  "simulation_time": 41,
+  "entities": { "observer-a": { "kind": "participant" }, "observer-b": { "kind": "participant" } },
+  "objective_reality": {
+    "facts": [
+      { "id": "service-door.locked", "value": false, "source_event": "10000000-0000-4000-8000-000000000001", "valid_from": 0 },
+      { "id": "generator-7.capacitor_failed", "value": true, "source_event": "10000000-0000-4000-8000-000000000002", "valid_from": 10 }
+    ]
+  },
+  "information_paths": [
+    { "id": "path-a-green", "source_event": "10000000-0000-4000-8000-000000000001", "delivery_event": "10000000-0000-4000-8000-000000000003", "recipient_id": "observer-a", "modality": "direct_sense", "delivered_at": 30, "reliability": 0.5 },
+    { "id": "path-b-latch", "source_event": "10000000-0000-4000-8000-000000000001", "delivery_event": "10000000-0000-4000-8000-000000000004", "recipient_id": "observer-b", "modality": "direct_sense", "delivered_at": 31, "reliability": 0.5 },
+    { "id": "path-a-status", "source_event": "10000000-0000-4000-8000-000000000001", "delivery_event": "10000000-0000-4000-8000-000000000005", "recipient_id": "observer-a", "modality": "message", "delivered_at": 32, "reliability": 1 }
+  ],
+  "observers": {
+    "observer-a": {
+      "perceptions": [{ "id": "perception-a-green", "content": "The indicator is green.", "path_id": "path-a-green" }],
+      "knowledge": [{ "id": "knowledge-a-door", "proposition": "service-door.locked is false", "path_id": "path-a-status" }],
+      "beliefs": [{ "id": "belief-a-door", "proposition": "service-door.locked", "value": false, "basis_ids": ["perception-a-green"], "confidence": 0.6 }]
+    },
+    "observer-b": {
+      "perceptions": [{ "id": "perception-b-latch", "content": "A latch clicks shut.", "path_id": "path-b-latch" }],
+      "knowledge": [],
+      "beliefs": [{ "id": "belief-b-door", "proposition": "service-door.locked", "value": true, "basis_ids": ["perception-b-latch"], "confidence": 0.6 }]
+    }
+  },
+  "world_state": {}
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://custodian.dev/schemas/canon/authority/v1",
+  "title": "Custodian Canon Authority v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["classification", "confidence", "provenance"],
+  "properties": {
+    "classification": { "enum": ["primary", "derived", "interpretive"] },
+    "confidence": { "enum": ["high", "medium", "low"] },
+    "provenance": { "type": "string", "minLength": 1 }
+  }
+}

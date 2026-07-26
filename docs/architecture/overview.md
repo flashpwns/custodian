@@ -19,9 +19,10 @@ boundaries.
 3. The adjudicator evaluates preconditions, canon constraints, and declared random
    inputs. It either rejects the intent with a reason or emits domain events.
 4. Events are appended atomically in stream order.
-5. The projector derives a new state from the prior projection plus those events.
-6. The response layer renders the outcome. It may be generative, but it cannot
-   rewrite events or state.
+5. The projector derives objective reality, then derives only the observer views
+   justified by recorded information paths.
+6. The response layer renders a declared perspective. It may be generative, but it
+   cannot rewrite events or state, and it cannot reveal unavailable objective facts.
 
 If rendering fails after an event is committed, a retry renders the same committed
 outcome. If event persistence fails, no narrative outcome may be presented as
@@ -39,10 +40,11 @@ preserve unknown event types during export even if it cannot interpret them.
 
 ## Determinism boundary
 
-Model output is not a source of simulation truth. Any generated text is a view of
-committed events and the current projection. Randomness that changes state must be
-recorded as an event input or outcome, including its algorithm/version where
-replay depends on it.
+Model output is not a source of simulation truth. Any generated text is a
+perspective-bounded view of committed events and the current projection. Randomness
+that changes state must be recorded as an event input or outcome, including its
+algorithm/version where replay depends on it. An objective fact may exist without
+an observer, but an observer's knowledge requires a recorded information path.
 
 ## Failure modes
 

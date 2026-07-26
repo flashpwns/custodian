@@ -14,5 +14,8 @@ it must validate these fixtures and add replay tests before expanding behavior.
 
 Run `npm test` to execute the dependency-free bootstrap check. It verifies valid
 JSON, envelope essentials, ordered events, world pinning, and the example’s derived
-fact. A production runtime should replace the narrow structural assertions with a
-full Draft 2020-12 validator while keeping the same fixture contract.
+perception. The constitutional fixture additionally proves that hidden objective
+changes persist, beliefs can conflict, knowledge requires a valid path, and a
+perspective changes revelation rather than reality. A production runtime should
+replace the narrow structural assertions with a full Draft 2020-12 validator while
+keeping the same fixture contract.

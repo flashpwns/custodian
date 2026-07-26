@@ -1,17 +1,22 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://custodian.dev/schemas/runtime/event-envelope/v1",
-  "title": "Custodian Event Envelope v1",
-  "description": "An immutable, ordered change to a Custodian session.",
+  "$id": "https://custodian.dev/schemas/runtime/event-envelope/v2",
+  "title": "Custodian Event Envelope v2",
+  "description": "An immutable, ordered change to objective reality or recorded information flow.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["event_id", "session_id", "sequence", "type", "occurred_at", "payload", "world"],
+  "required": ["event_id", "session_id", "sequence", "type", "occurred_at", "simulation_time", "payload", "world"],
   "properties": {
     "event_id": { "type": "string", "format": "uuid" },
     "session_id": { "type": "string", "minLength": 1 },
     "sequence": { "type": "integer", "minimum": 1 },
     "type": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]+@v[1-9][0-9]*$" },
     "occurred_at": { "type": "string", "format": "date-time" },
+    "simulation_time": {
+      "description": "Monotonic session time in milliseconds; separate from wall-clock persistence time.",
+      "type": "integer",
+      "minimum": 0
+    },
     "actor_id": { "type": "string", "minLength": 1 },
     "causation_id": { "type": "string", "format": "uuid" },
     "correlation_id": { "type": "string", "format": "uuid" },
@@ -25,6 +30,10 @@
       }
     },
     "payload": { "type": "object" },
+    "effect": {
+      "description": "Declares which constitutional layer the event is permitted to change.",
+      "enum": ["objective_reality", "information_path", "epistemic_state", "administrative"]
+    },
     "metadata": { "type": "object", "additionalProperties": true }
   }
 }

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://custodian.dev/schemas/runtime/narrative-revelation/v1",
+  "title": "Custodian Narrative Revelation v1",
+  "description": "A perspective-bounded permission set for rendering; it contains no objective facts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["session_id", "projected_through", "perspective", "permitted"],
+  "properties": {
+    "session_id": { "type": "string", "minLength": 1 },
+    "projected_through": { "type": "integer", "minimum": 0 },
+    "perspective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observer_id"],
+      "properties": { "observer_id": { "type": "string", "minLength": 1 } }
+    },
+    "permitted": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["perception_ids", "knowledge_ids", "belief_ids"],
+      "properties": {
+        "perception_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "knowledge_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "belief_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    }
+  }
+}

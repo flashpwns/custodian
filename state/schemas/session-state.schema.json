@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://custodian.dev/schemas/state/session-state/v1",
-  "title": "Custodian Session State v1",
+  "$id": "https://custodian.dev/schemas/state/session-state/v2",
+  "title": "Custodian Session State v2",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "session_id", "world", "projected_through", "entities", "facts"],
+  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "entities", "objective_reality", "observers"],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "2.0.0" },
     "session_id": { "type": "string", "minLength": 1 },
     "world": {
       "type": "object",
@@ -18,21 +18,64 @@
       }
     },
     "projected_through": { "type": "integer", "minimum": 0 },
+    "simulation_time": { "type": "integer", "minimum": 0 },
     "entities": { "type": "object", "additionalProperties": { "type": "object" } },
-    "facts": {
-      "type": "array",
-      "items": {
+    "objective_reality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["facts"],
+      "properties": {
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "value", "source_event", "valid_from"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "value": {},
+              "source_event": { "type": "string", "format": "uuid" },
+              "valid_from": { "type": "integer", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    "information_paths": { "type": "array", "items": { "type": "object" } },
+    "observers": {
+      "type": "object",
+      "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "claim", "status", "source_event"],
+        "required": ["perceptions", "knowledge", "beliefs"],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
-          "claim": { "type": "string", "minLength": 1 },
-          "status": { "enum": ["observed", "reported", "inferred", "disputed"] },
-          "source_event": { "type": "string", "format": "uuid" }
+          "perceptions": { "type": "array", "items": { "$ref": "#/$defs/perception" } },
+          "knowledge": { "type": "array", "items": { "$ref": "#/$defs/knowledge" } },
+          "beliefs": { "type": "array", "items": { "$ref": "#/$defs/belief" } }
         }
       }
     },
     "world_state": { "type": "object", "additionalProperties": true }
+  },
+  "$defs": {
+    "perception": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "content", "path_id"],
+      "properties": { "id": { "type": "string" }, "content": { "type": "string" }, "path_id": { "type": "string" } }
+    },
+    "knowledge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "proposition", "path_id"],
+      "properties": { "id": { "type": "string" }, "proposition": { "type": "string" }, "path_id": { "type": "string" } }
+    },
+    "belief": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "proposition", "value", "basis_ids", "confidence"],
+      "properties": {
+        "id": { "type": "string" }, "proposition": { "type": "string" }, "value": {},
+        "basis_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
   }
 }

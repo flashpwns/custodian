@@ -5,6 +5,8 @@
     "sequence": 1,
     "type": "session.created@v1",
     "occurred_at": "2026-01-01T00:00:00Z",
+    "simulation_time": 0,
+    "effect": "administrative",
     "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
     "payload": { "participant_ids": ["explorer-01"] }
   },
@@ -14,6 +16,8 @@
     "sequence": 2,
     "type": "observation.recorded@v1",
     "occurred_at": "2026-01-01T00:01:00Z",
+    "simulation_time": 60000,
+    "effect": "information_path",
     "actor_id": "explorer-01",
     "causation_id": "33333333-3333-4333-8333-333333333333",
     "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },

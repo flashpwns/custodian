@@ -27,14 +27,13 @@ assert.equal(events.at(-1).sequence, state.projected_through, "state must projec
 const observation = events.find((event) => event.type === "observation.recorded@v1");
 assert.ok(observation, "fixture must include an observation");
 assert.deepEqual(
-  state.facts.find((fact) => fact.id === observation.payload.fact_id),
+  state.observers["explorer-01"].perceptions.find((perception) => perception.id === observation.payload.fact_id),
   {
     id: observation.payload.fact_id,
-    claim: observation.payload.claim,
-    status: observation.payload.status,
-    source_event: observation.event_id
+    content: observation.payload.claim,
+    path_id: "path-ambient-light-01"
   },
-  "observation event must project to its durable fact"
+  "observation event must project to observer-local perception"
 );
 
 console.log(`validated ${manifest.name}`);

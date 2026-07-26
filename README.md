@@ -23,6 +23,8 @@ be replayed. Custodian treats those seams as first-class design constraints.
   source of truth.
 - **Canon-aware:** world facts carry provenance and confidence instead of being
   flattened into prompt text.
+- **Perspective-bounded:** objective reality, observation, knowledge, belief, and
+  narrative revelation remain distinct.
 - **Portable:** a world pack can change without changing core runtime contracts.
 - **Human-governed:** unresolved canon and safety-sensitive outcomes remain
   explicit decisions.
