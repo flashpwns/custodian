@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://custodian.dev/schemas/state/session-state/v7",
-  "title": "Custodian Session State v7",
+  "$id": "https://custodian.dev/schemas/state/session-state/v8",
+  "title": "Custodian Session State v8",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "timeline", "entities", "objective_reality", "evidence", "observers", "agents", "memories", "relationships"],
+  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "timeline", "entities", "objective_reality", "evidence", "observers", "agents", "memories", "relationships", "messages"],
   "properties": {
-    "schema_version": { "const": "7.0.0" },
+    "schema_version": { "const": "8.0.0" },
     "session_id": { "type": "string", "minLength": 1 },
     "world": {
       "type": "object",
@@ -67,6 +67,7 @@
     "agents": { "type": "object", "additionalProperties": { "$ref": "#/$defs/agent" } },
     "memories": { "type": "array", "items": { "$ref": "#/$defs/memory" } },
     "relationships": { "type": "array", "items": { "type": "object" } },
+    "messages": { "type": "array", "items": { "type": "object" } },
     "world_state": { "type": "object", "additionalProperties": true }
   },
   "$defs": {

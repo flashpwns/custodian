@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/communication-act/v1","type":"object","required":["speaker","act","intent"],"properties":{"speaker":{"type":"string"},"act":{"type":"string"},"intent":{"type":"string"}}}
