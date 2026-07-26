@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/commitment/v1","type":"object","required":["id","promisor","action","status"],"properties":{"id":{"type":"string"},"promisor":{"type":"string"},"action":{"type":"string"},"status":{"enum":["active","withdrawn","broken","fulfilled"]}}}

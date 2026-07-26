@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://custodian.dev/schemas/state/session-state/v8",
-  "title": "Custodian Session State v8",
+  "$id": "https://custodian.dev/schemas/state/session-state/v9",
+  "title": "Custodian Session State v9",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "timeline", "entities", "objective_reality", "evidence", "observers", "agents", "memories", "relationships", "messages"],
+  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "timeline", "entities", "objective_reality", "evidence", "observers", "agents", "memories", "relationships", "messages", "plans", "commitments", "obligations", "planning_history", "resource_reservations"],
   "properties": {
-    "schema_version": { "const": "8.0.0" },
+    "schema_version": { "const": "9.0.0" },
     "session_id": { "type": "string", "minLength": 1 },
     "world": {
       "type": "object",
@@ -68,6 +68,7 @@
     "memories": { "type": "array", "items": { "$ref": "#/$defs/memory" } },
     "relationships": { "type": "array", "items": { "type": "object" } },
     "messages": { "type": "array", "items": { "type": "object" } },
+    "plans": { "type": "array", "items": { "type": "object" } }, "commitments": { "type": "array", "items": { "type": "object" } }, "obligations": { "type": "array", "items": { "type": "object" } }, "planning_history": { "type": "array", "items": { "type": "object" } }, "resource_reservations": { "type": "object" },
     "world_state": { "type": "object", "additionalProperties": true }
   },
   "$defs": {

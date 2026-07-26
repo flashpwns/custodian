@@ -185,3 +185,12 @@ belief is mistaken communication, not a lie. Omission is deliberate withholding,
 not a false claim; silence implies nothing by itself. Private messages require a
 delivery, interception, or later disclosure path before another agent may access
 them.
+
+## 17. Preserve plans as contingent intent
+
+**Plans represent intended future action, not objective future reality.** Plans,
+steps, commitments, obligations, contingencies, and progress may guide proposals
+but never pre-authorize objective change. Only successful committed execution does.
+Dependencies, resources, deadlines, evidence, communication, and commitments must
+be evaluated explicitly; revision, failure, suspension, abandonment, and
+supersession preserve prior history rather than rewriting intent.
