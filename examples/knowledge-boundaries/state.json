@@ -1,5 +1,5 @@
 {
-  "schema_version": "5.0.0",
+  "schema_version": "6.0.0",
   "session_id": "knowledge-boundaries-001",
   "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
   "projected_through": 7,
@@ -31,5 +31,6 @@
     }
   },
   "agents": {},
+  "memories": [],
   "world_state": {}
 }

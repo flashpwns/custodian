@@ -11,6 +11,8 @@ weakening persistence or continuity.
   defines durable evidence and bounded indirect observation.
 - [`architecture/agency-decision.md`](architecture/agency-decision.md) defines
   proposal-based agency and deterministic execution.
+- [`architecture/memory-learning.md`](architecture/memory-learning.md) defines
+  durable internal memory, retrieval, forgetting, and learning.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
