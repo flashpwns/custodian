@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://custodian.dev/schemas/runtime/information-path/v1",
+  "title": "Custodian Information Path v1",
+  "description": "A recorded route by which a source event becomes available to one observer.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "source_event", "delivery_event", "recipient_id", "modality", "delivered_at", "reliability"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "source_event": { "type": "string", "format": "uuid" },
+    "delivery_event": { "type": "string", "format": "uuid" },
+    "recipient_id": { "type": "string", "minLength": 1 },
+    "modality": { "enum": ["direct_sense", "instrument", "message", "record", "testimony"] },
+    "delivered_at": { "type": "integer", "minimum": 0 },
+    "reliability": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}

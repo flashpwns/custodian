@@ -1,0 +1,10 @@
+{
+  "session_id": "knowledge-boundaries-001",
+  "projected_through": 7,
+  "perspective": { "observer_id": "observer-a" },
+  "permitted": {
+    "perception_ids": ["perception-a-green"],
+    "knowledge_ids": ["knowledge-a-door"],
+    "belief_ids": ["belief-a-door"]
+  }
+}

@@ -1,16 +1,28 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "session_id": "demo-session-001",
   "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
   "projected_through": 2,
+  "simulation_time": 60000,
   "entities": { "explorer-01": { "kind": "participant" } },
-  "facts": [
+  "objective_reality": { "facts": [] },
+  "information_paths": [
     {
-      "id": "ambient-light-01",
-      "claim": "A steady electrical hum is audible.",
-      "status": "observed",
-      "source_event": "22222222-2222-4222-8222-222222222222"
+      "id": "path-ambient-light-01",
+      "source_event": "22222222-2222-4222-8222-222222222222",
+      "delivery_event": "22222222-2222-4222-8222-222222222222",
+      "recipient_id": "explorer-01",
+      "modality": "direct_sense",
+      "delivered_at": 60000,
+      "reliability": 0.8
     }
   ],
+  "observers": {
+    "explorer-01": {
+      "perceptions": [{ "id": "ambient-light-01", "content": "A steady electrical hum is audible.", "path_id": "path-ambient-light-01" }],
+      "knowledge": [],
+      "beliefs": []
+    }
+  },
   "world_state": {}
 }

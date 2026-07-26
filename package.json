@@ -4,7 +4,7 @@
   "private": true,
   "description": "Persistent, canon-aware narrative simulation framework.",
   "scripts": {
-    "test": "node --test tests/contract-fixtures.test.js"
+    "test": "node --test tests/*.test.js"
   },
   "engines": {
     "node": ">=20"

@@ -3,11 +3,16 @@
 **Normative.** The key words **MUST**, **MUST NOT**, **SHOULD**, and **MAY** are
 interpreted as described in RFC 2119.
 
-## 1. Preserve truth through events
+## 1. Preserve objective reality through events
 
-Durable simulation changes **MUST** be represented as ordered events. A state
-projection **MUST NOT** become the only record of how a fact came to be. Event
-deletion or mutation requires an explicit, auditable redaction policy.
+Durable changes to objective reality **MUST** be represented as ordered events. An
+objective projection **MUST NOT** become the only record of how a fact came to be.
+Event deletion or mutation requires an explicit, auditable redaction policy.
+
+Objective reality is what exists in the simulation whether or not any observer
+perceives it. It includes hidden conditions, causal consequences, and the
+simulation time at which they obtain. It is the sole authority for physical and
+world-state resolution; it is not automatically narrative-visible.
 
 ## 2. Separate mechanism from world
 
@@ -21,32 +26,69 @@ The system **MUST** distinguish observed facts, sourced claims, inferences, and
 fictional connective material. A response **MUST NOT** present unresolved canon as
 verified fact. Confidence and provenance belong with canon assertions.
 
-## 4. Keep generated prose subordinate to state
+**Mystery is an emergent property of incomplete information, not withheld
+information.** The runtime **MUST** simulate relevant objective facts before their
+effects are observed. It **MUST NOT** invent a previously-unsimulated hidden fact
+only when a reveal would make a scene more dramatic.
+
+## 4. Keep epistemic layers distinct
+
+Custodian recognizes five non-interchangeable layers:
+
+1. **Objective reality** — a world fact or consequence represented in the
+   objective projection.
+2. **Perception** — an observer's bounded sensory or instrument reading of an
+   event; it may be incomplete, noisy, or misleading.
+3. **Knowledge** — a proposition acquired through a recorded, valid information
+   path and retained by a named observer.
+4. **Belief** — an observer's defeasible interpretation of a proposition. Beliefs
+   may conflict with objective reality and with one another.
+5. **Narrative revelation** — material a renderer is permitted to present for a
+   declared perspective. It is a view, never an authority over reality.
+
+A perception **MUST NOT** be promoted to knowledge without a valid information
+path. A belief **MUST NOT** be promoted to objective reality merely because it is
+widely held. A narrative renderer **MUST NOT** disclose objective facts outside its
+declared perspective except through explicitly authorized out-of-world interfaces.
+
+## 5. Make causality, time, and propagation explicit
+
+Every event that changes objective reality **MUST** carry simulation time and an
+identifiable causal origin when it is not a session root. Every knowledge record
+**MUST** reference an information path whose source event predates its delivery and
+whose recipient matches the knower. Information propagation is a simulation event,
+not an assumed side effect of truth.
+
+Changing the active perspective **MUST NOT** rewrite objective reality, event
+history, another observer's knowledge, or another observer's beliefs. It changes
+only the permitted narrative revelation.
+
+## 6. Keep generated prose subordinate to state
 
 Generated narrative **MUST NOT** silently create, alter, or erase durable facts.
 Only committed events can do so. Rendering **SHOULD** cite the relevant state and
 canon context internally so it remains constrained by the simulation outcome.
 
-## 5. Favor replay over convenience
+## 7. Favor replay over convenience
 
 Equivalent inputs, pinned dependencies, and declared random outcomes **SHOULD**
 produce equivalent event streams. Nondeterministic dependencies **MUST** be
 identified at the adapter boundary and recorded whenever they affect state.
 
-## 6. Version public contracts
+## 8. Version public contracts
 
 Public schemas, event types, and world packs **MUST** carry versions. Breaking
 changes **MUST** provide migration or an intentional incompatibility boundary.
 Silent reinterpretation of saved sessions is prohibited.
 
-## 7. Protect players and source material
+## 9. Protect players and source material
 
 Deployments **MUST** have an explicit policy for sensitive content, privacy, and
 operator intervention. World packs **MUST NOT** redistribute source material
 without permission. Attribution, transformation, and original additions must be
 clear enough for maintainers to review.
 
-## 8. Test observable promises
+## 10. Test observable promises
 
 Every externally observable contract change **MUST** have a fixture or automated
 test. Tests should prefer behavior at boundaries—input, event, projection, and
