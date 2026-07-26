@@ -19,9 +19,9 @@ flowchart LR
   F --> H[Future scoped perception adapters]
 ```
 
-Narration projects simulation state. Narration never creates truth. Perception,
-attention, scene projection, disclosure policy, and prose remain outside this
-milestone.
+Narration projects simulation state. Narration never creates truth. Perception
+is now an observer-local acquisition domain; attention, scene projection,
+disclosure policy, and prose remain outside the kernel.
 
 ## Kernel purity
 

@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/perception-record/v1","type":"object","additionalProperties":false,"required":["observer","result","causal_source"],"properties":{"observer":{"type":"string"},"result":{"$ref":"https://custodian.dev/schemas/runtime/observation-result/v1"},"causal_source":{"type":"string"}}}

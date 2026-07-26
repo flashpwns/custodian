@@ -11,8 +11,9 @@ source material.
 
 > **Status:** constitutional reference architecture. The repository provides
 > deterministic reference executors and fixtures for knowledge, time, evidence,
-> agency, memory, social state, communication, planning, and objective physical
-> environments; it is not a production deployment engine.
+> agency, memory, social state, communication, planning, objective physical
+> environments, and observer-local perception; it is not a production deployment
+> engine.
 
 ## Why Custodian
 
@@ -73,9 +74,9 @@ projection, then produces a response grounded in that result.
 Custodian now includes a deterministic reference kernel and a deliberately small
 generic world pack. Run `npm test` for all validation, `npm run validate` for
 canonical contract/projection checks, and `npm run demo` for a structured two-room
-simulation and replay comparison. Perception, sensors, attention, scene
-projection, disclosure policy, narration, and LLM rendering are intentionally not
-implemented yet.
+simulation and replay comparison. Perception is a structured, projection-pinned
+observer-local acquisition boundary; attention, scene projection, disclosure
+policy, narration, and LLM rendering are intentionally not implemented yet.
 
 ## Scope and non-goals
 
