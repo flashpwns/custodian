@@ -194,3 +194,19 @@ but never pre-authorize objective change. Only successful committed execution do
 Dependencies, resources, deadlines, evidence, communication, and commitments must
 be evaluated explicitly; revision, failure, suspension, abandonment, and
 supersession preserve prior history rather than rewriting intent.
+
+## 18. Keep objective reality physically constrained
+
+Locations, topology, containment, objects, resources, conditions, hazards,
+damage, repair, and affordances are objective state. They may change only through
+valid committed spatial, causal, and material paths. Planning, communication,
+belief, memory, relationships, and narration may inform a proposal but MUST NOT
+bypass physical resolution.
+
+## 19. Preserve kernel purity
+
+Every reducer MUST behave as a pure deterministic transformation of declared input
+state and a committed event. Reducers MUST NOT depend on wall-clock time,
+uncontrolled randomness, filesystem state, network state, environment variables,
+mutable global state, process-local insertion order, or external I/O. Any required
+nondeterministic input MUST first become explicit committed simulation data.

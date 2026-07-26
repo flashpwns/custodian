@@ -1,0 +1,11 @@
+"use strict";
+const fs = require("node:fs");
+const path = require("node:path");
+const { replay, stable } = require("./canonical-kernel.js");
+const root = path.resolve(__dirname, "..");
+const pack = JSON.parse(fs.readFileSync(path.join(root, "canon/reference-convergence/manifest.json"), "utf8"));
+const events = JSON.parse(fs.readFileSync(path.join(root, "examples/reference-simulation/events.json"), "utf8"));
+const first = replay(events, pack); const second = replay([...events].reverse(), pack);
+const result = { committed_sequence: first.projection.projected_through, projection_identity: first.projection.identity, objective: first.projection.objective, local: first.state.local, replay_equivalent: stable(first.projection) === stable(second.projection) };
+console.log(JSON.stringify(result, null, 2));
+if (!result.replay_equivalent) process.exitCode = 1;
