@@ -15,6 +15,8 @@ without requiring a particular language runtime or provider.
   constraints, interruption, and deterministic execution.
 - [`memory-learning/`](memory-learning/plan.json) demonstrates formation, decay,
   retrieval, and memory-influenced proposals.
+- [`relationship-social/`](relationship-social/plan.json) demonstrates familiarity,
+  trust, testimony, and reputation inputs.
 
 Examples are intentionally fictional and do not assert new canon for any world
 pack.

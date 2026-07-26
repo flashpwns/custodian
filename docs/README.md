@@ -13,6 +13,8 @@ weakening persistence or continuity.
   proposal-based agency and deterministic execution.
 - [`architecture/memory-learning.md`](architecture/memory-learning.md) defines
   durable internal memory, retrieval, forgetting, and learning.
+- [`architecture/relationships-social.md`](architecture/relationships-social.md)
+  defines trust, testimony, and emergent reputation.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 

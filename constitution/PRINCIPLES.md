@@ -154,7 +154,19 @@ operator intervention. World packs **MUST NOT** redistribute source material
 without permission. Attribution, transformation, and original additions must be
 clear enough for maintainers to review.
 
-## 14. Test observable promises
+## 14. Keep social interpretation local and replayable
+
+**Relationships are persistent agent-local interpretations of other agents.**
+Familiarity, trust, distrust, and social knowledge are not objective reality and
+may not modify objective history. Objective interaction, evidence, and testimony
+may reshape them through replayable events.
+
+Trust is earned through objective experience and evidence. Testimony is evidence
+about another agent's beliefs or experiences, never direct proof of objective
+reality; its confidence bounds social knowledge. Reputation emerges from accumulated
+social knowledge and shared experience, not as an intrinsic agent property.
+
+## 15. Test observable promises
 
 Every externally observable contract change **MUST** have a fixture or automated
 test. Tests should prefer behavior at boundaries—input, event, projection, and
