@@ -28,3 +28,10 @@ boundary.
 The evidence fixture verifies observer-independent recording, evidence-only
 knowledge, survival and destruction across time, bounded partial records, forged
 beliefs, and deterministic preservation of evidence chains.
+
+The environment fixtures verify deterministic spatial movement, conservation and
+custody, unattended conditions and hazards, material damage and repair, scheduled
+topology, and constitutional integration with agency, time, evidence, knowledge,
+memory, relationships, communication, and planning. The artifact-validation test
+parses every JSON artifact and verifies the required Draft 2020-12 schema metadata
+and v10 state projection shape.

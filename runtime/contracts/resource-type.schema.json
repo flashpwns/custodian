@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/resource-type/v1","type":"object","required":["id","divisible","consumable"],"properties":{"id":{"type":"string"},"divisible":{"type":"boolean"},"consumable":{"type":"boolean"}}}

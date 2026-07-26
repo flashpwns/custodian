@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/spatial-connection/v1","type":"object","required":["id","from","to","adjacent","traversable"],"properties":{"id":{"type":"string"},"from":{"type":"string"},"to":{"type":"string"},"adjacent":{"type":"boolean"},"traversable":{"type":"boolean"}}}

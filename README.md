@@ -9,8 +9,10 @@ simulation of an anomalous space, its exploration, and the records created aroun
 it. It is a reference implementation of Custodian, not a replacement for the
 source material.
 
-> **Status:** architecture bootstrap. The repository establishes stable contracts,
-> governance, and fixtures before introducing an executable engine.
+> **Status:** constitutional reference architecture. The repository provides
+> deterministic reference executors and fixtures for knowledge, time, evidence,
+> agency, memory, social state, communication, planning, and objective physical
+> environments; it is not a production deployment engine.
 
 ## Why Custodian
 

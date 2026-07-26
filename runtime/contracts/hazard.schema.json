@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/hazard/v1","type":"object","required":["id","location","condition","threshold","harm"],"properties":{"id":{"type":"string"},"location":{"type":"string"},"condition":{"type":"string"},"threshold":{"type":"number"},"harm":{"type":"number","exclusiveMinimum":0}}}

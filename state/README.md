@@ -25,6 +25,10 @@ recorded form, availability, fidelity, completeness, provenance, and retained
 claims. Destroyed evidence remains as a destroyed historical object; it cannot be
 used to create later information paths.
 
+Session State v10 adds an `environment` projection with objective environmental
+conditions, hazards, damage history, and topology history. These records remain
+separate from observer-local knowledge and from planning or narrative state.
+
 ## Projection rules
 
 - Apply events in strictly increasing `sequence` order.

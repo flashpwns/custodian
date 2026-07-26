@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/environmental-condition/v1","type":"object","required":["id","location","kind","intensity","updated_at"],"properties":{"id":{"type":"string"},"location":{"type":"string"},"kind":{"type":"string"},"intensity":{"type":"number"},"updated_at":{"type":"integer","minimum":0}}}

@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/containment/v1","type":"object","required":["entity","container"],"properties":{"entity":{"type":"string"},"container":{"type":"string"}}}

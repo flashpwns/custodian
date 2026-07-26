@@ -19,6 +19,9 @@ weakening persistence or continuity.
   defines deterministic, perspective-bounded messaging.
 - [`architecture/planning-commitments.md`](architecture/planning-commitments.md)
   defines contingent planning and commitments.
+- [`architecture/environment-physical-constraints.md`](architecture/environment-physical-constraints.md)
+  defines objective space, resources, hazards, material effects, and their
+  constitutional boundaries.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
