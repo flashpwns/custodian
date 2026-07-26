@@ -30,6 +30,29 @@ try {
   assert.equal(run(["tools/create-worldpack.js", scaffolded]).status, 1, "scaffold refuses overwrite");
 } finally { fs.rmSync(temporary, { recursive: true, force: true }); }
 
+const artifactDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "custodian-package-"));
+try {
+  const packed = spawnSync("npm", ["pack", "--json", "--pack-destination", artifactDirectory], {
+    cwd: root,
+    encoding: "utf8",
+    env: { ...process.env, npm_config_cache: path.join(artifactDirectory, "cache") }
+  });
+  assert.equal(packed.status, 0, packed.stderr);
+  const archive = path.join(artifactDirectory, JSON.parse(packed.stdout)[0].filename);
+  const unpacked = path.join(artifactDirectory, "unpacked");
+  fs.mkdirSync(unpacked);
+  assert.equal(spawnSync("tar", ["-xzf", archive, "-C", unpacked], { encoding: "utf8" }).status, 0);
+  fs.mkdirSync(path.join(unpacked, "package", "node_modules"));
+  const packagedRoot = path.join(unpacked, "package");
+  for (const dependency of ["ajv", "ajv-formats"]) fs.symlinkSync(path.join(root, "node_modules", dependency), path.join(packagedRoot, "node_modules", dependency), "dir");
+  assert.ok(fs.existsSync(path.join(packagedRoot, "templates", "world-pack-starter", "manifest.json")));
+  const app = path.join(artifactDirectory, "consumer");
+  fs.mkdirSync(path.join(app, "node_modules"), { recursive: true });
+  fs.symlinkSync(packagedRoot, path.join(app, "node_modules", "custodian"), "dir");
+  const consumer = spawnSync(process.execPath, ["-e", "const api=require('custodian'); if(typeof api.createSession!=='function') process.exit(3); try { require('custodian/runtime/canonical-kernel.js'); process.exit(4); } catch (error) { if (error.code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') process.exit(5); }"], { cwd: app, encoding: "utf8" });
+  assert.equal(consumer.status, 0, consumer.stderr);
+} finally { fs.rmSync(artifactDirectory, { recursive: true, force: true }); }
+
 const world_pack = packAt("examples/signal-room");
 const scenario = scenarioAt("examples/signal-room");
 const created = createSession({ world_pack, scenario });
