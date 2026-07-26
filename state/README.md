@@ -15,6 +15,11 @@ knowledge is traceable receipt of information, and beliefs are fallible
 interpretations. A renderer consumes a perspective-bounded revelation contract,
 not the objective projection directly.
 
+The timeline stores the current simulation time, the fixed resolution policy, and
+pending scheduled consequences. Pending work is durable state: time advancement
+resolves it whether or not observers are present. It must never be inferred only
+when an observer asks for a scene.
+
 ## Projection rules
 
 - Apply events in strictly increasing `sequence` order.

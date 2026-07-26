@@ -1,0 +1,6 @@
+{
+  "simulation_time": 12,
+  "objective_reality": { "airlock.pressure": "low", "valve.command": "closed" },
+  "pending": [],
+  "history_ids": ["system-schedule-pressure-drop", "action-alpha-open", "action-bravo-close", "scheduled-pressure-drop", "observer-arrives", "narrate-pressure-drop"]
+}

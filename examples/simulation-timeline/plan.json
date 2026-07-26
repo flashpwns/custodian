@@ -1,0 +1,37 @@
+{
+  "target_time": 12,
+  "initial_reality": { "airlock.pressure": "normal", "valve.command": "idle" },
+  "entries": [
+    {
+      "id": "system-schedule-pressure-drop", "at": 0, "phase": "action", "priority": 0,
+      "operation": {
+        "kind": "schedule",
+        "scheduled": {
+          "id": "scheduled-pressure-drop", "due_at": 10, "priority": 0,
+          "type": "reality.changed@v1", "payload": { "fact_id": "airlock.pressure", "value": "low" },
+          "operation": { "kind": "set", "fact_id": "airlock.pressure", "value": "low" }
+        }
+      }
+    },
+    {
+      "id": "action-alpha-open", "at": 5, "phase": "action", "priority": 0,
+      "causal_parents": ["system-schedule-pressure-drop"],
+      "operation": { "kind": "set", "fact_id": "valve.command", "value": "open" }
+    },
+    {
+      "id": "action-bravo-close", "at": 5, "phase": "action", "priority": 0,
+      "causal_parents": ["system-schedule-pressure-drop"],
+      "operation": { "kind": "set", "fact_id": "valve.command", "value": "closed" }
+    },
+    {
+      "id": "observer-arrives", "at": 11, "phase": "observation", "priority": 0,
+      "causal_parents": ["scheduled-pressure-drop"],
+      "operation": { "kind": "observe", "source_event": "scheduled-pressure-drop" }
+    },
+    {
+      "id": "narrate-pressure-drop", "at": 12, "phase": "narration", "priority": 0,
+      "causal_parents": ["scheduled-pressure-drop"],
+      "operation": { "kind": "narrate", "event_ids": ["system-schedule-pressure-drop", "scheduled-pressure-drop"] }
+    }
+  ]
+}

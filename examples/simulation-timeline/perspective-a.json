@@ -1,0 +1,7 @@
+{
+  "session_id": "simulation-timeline-001",
+  "projected_through": 6,
+  "simulation_time": 12,
+  "perspective": { "observer_id": "observer-a" },
+  "permitted_event_ids": ["scheduled-pressure-drop"]
+}

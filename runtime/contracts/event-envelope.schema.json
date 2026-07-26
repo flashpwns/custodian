@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://custodian.dev/schemas/runtime/event-envelope/v2",
-  "title": "Custodian Event Envelope v2",
+  "$id": "https://custodian.dev/schemas/runtime/event-envelope/v3",
+  "title": "Custodian Event Envelope v3",
   "description": "An immutable, ordered change to objective reality or recorded information flow.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["event_id", "session_id", "sequence", "type", "occurred_at", "simulation_time", "payload", "world"],
+  "required": ["event_id", "session_id", "sequence", "type", "occurred_at", "simulation_time", "timeline", "payload", "world"],
   "properties": {
     "event_id": { "type": "string", "format": "uuid" },
     "session_id": { "type": "string", "minLength": 1 },
@@ -17,8 +17,20 @@
       "type": "integer",
       "minimum": 0
     },
+    "timeline": {
+      "description": "Durable total-order fields used for deterministic replay at simulation_time.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phase", "priority", "stable_id"],
+      "properties": {
+        "phase": { "enum": ["scheduled", "action", "consequence", "observation", "narration"] },
+        "priority": { "type": "integer" },
+        "stable_id": { "type": "string", "minLength": 1 }
+      }
+    },
     "actor_id": { "type": "string", "minLength": 1 },
     "causation_id": { "type": "string", "format": "uuid" },
+    "causal_parents": { "type": "array", "items": { "type": "string", "format": "uuid" }, "uniqueItems": true },
     "correlation_id": { "type": "string", "format": "uuid" },
     "world": {
       "type": "object",

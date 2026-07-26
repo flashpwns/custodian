@@ -1,48 +1,48 @@
 [
   {
     "event_id": "10000000-0000-4000-8000-000000000001", "session_id": "knowledge-boundaries-001", "sequence": 1,
-    "type": "reality.initialized@v1", "occurred_at": "2026-01-01T00:00:00Z", "simulation_time": 0,
+    "type": "reality.initialized@v1", "occurred_at": "2026-01-01T00:00:00Z", "simulation_time": 0, "timeline": { "phase": "action", "priority": 0, "stable_id": "reality-initialized" },
     "effect": "objective_reality", "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
     "payload": { "fact_id": "service-door.locked", "value": false }
   },
   {
     "event_id": "10000000-0000-4000-8000-000000000002", "session_id": "knowledge-boundaries-001", "sequence": 2,
-    "type": "reality.changed@v1", "occurred_at": "2026-01-01T00:00:10Z", "simulation_time": 10,
+    "type": "reality.changed@v1", "occurred_at": "2026-01-01T00:00:10Z", "simulation_time": 10, "timeline": { "phase": "consequence", "priority": 0, "stable_id": "generator-failure" },
     "causation_id": "10000000-0000-4000-8000-000000000001", "effect": "objective_reality",
     "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
     "payload": { "fact_id": "generator-7.capacitor_failed", "value": true }
   },
   {
     "event_id": "10000000-0000-4000-8000-000000000003", "session_id": "knowledge-boundaries-001", "sequence": 3,
-    "type": "information.observed@v1", "occurred_at": "2026-01-01T00:00:30Z", "simulation_time": 30,
+    "type": "information.observed@v1", "occurred_at": "2026-01-01T00:00:30Z", "simulation_time": 30, "timeline": { "phase": "observation", "priority": 0, "stable_id": "observer-a-green" },
     "causation_id": "10000000-0000-4000-8000-000000000001", "effect": "information_path",
     "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
     "payload": { "path_id": "path-a-green", "recipient_id": "observer-a", "content": "The indicator is green.", "modality": "direct_sense" }
   },
   {
     "event_id": "10000000-0000-4000-8000-000000000004", "session_id": "knowledge-boundaries-001", "sequence": 4,
-    "type": "information.observed@v1", "occurred_at": "2026-01-01T00:00:31Z", "simulation_time": 31,
+    "type": "information.observed@v1", "occurred_at": "2026-01-01T00:00:31Z", "simulation_time": 31, "timeline": { "phase": "observation", "priority": 0, "stable_id": "observer-b-latch" },
     "causation_id": "10000000-0000-4000-8000-000000000001", "effect": "information_path",
     "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
     "payload": { "path_id": "path-b-latch", "recipient_id": "observer-b", "content": "A latch clicks shut.", "modality": "direct_sense" }
   },
   {
     "event_id": "10000000-0000-4000-8000-000000000005", "session_id": "knowledge-boundaries-001", "sequence": 5,
-    "type": "information.delivered@v1", "occurred_at": "2026-01-01T00:00:32Z", "simulation_time": 32,
+    "type": "information.delivered@v1", "occurred_at": "2026-01-01T00:00:32Z", "simulation_time": 32, "timeline": { "phase": "observation", "priority": 0, "stable_id": "observer-a-status" },
     "causation_id": "10000000-0000-4000-8000-000000000001", "effect": "information_path",
     "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
     "payload": { "path_id": "path-a-status", "recipient_id": "observer-a", "content": "Status: service door unlocked.", "modality": "message" }
   },
   {
     "event_id": "10000000-0000-4000-8000-000000000006", "session_id": "knowledge-boundaries-001", "sequence": 6,
-    "type": "belief.updated@v1", "occurred_at": "2026-01-01T00:00:40Z", "simulation_time": 40,
+    "type": "belief.updated@v1", "occurred_at": "2026-01-01T00:00:40Z", "simulation_time": 40, "timeline": { "phase": "consequence", "priority": 0, "stable_id": "belief-a-door" },
     "causation_id": "10000000-0000-4000-8000-000000000003", "effect": "epistemic_state",
     "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
     "payload": { "observer_id": "observer-a", "belief_id": "belief-a-door", "value": false }
   },
   {
     "event_id": "10000000-0000-4000-8000-000000000007", "session_id": "knowledge-boundaries-001", "sequence": 7,
-    "type": "belief.updated@v1", "occurred_at": "2026-01-01T00:00:41Z", "simulation_time": 41,
+    "type": "belief.updated@v1", "occurred_at": "2026-01-01T00:00:41Z", "simulation_time": 41, "timeline": { "phase": "consequence", "priority": 0, "stable_id": "belief-b-door" },
     "causation_id": "10000000-0000-4000-8000-000000000004", "effect": "epistemic_state",
     "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
     "payload": { "observer_id": "observer-b", "belief_id": "belief-b-door", "value": true }

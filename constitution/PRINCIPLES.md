@@ -63,32 +63,55 @@ Changing the active perspective **MUST NOT** rewrite objective reality, event
 history, another observer's knowledge, or another observer's beliefs. It changes
 only the permitted narrative revelation.
 
-## 6. Keep generated prose subordinate to state
+## 6. Advance reality independently of observation
+
+**Reality advances independently of observation. Observation discovers events. It
+does not create them.** The runtime **MUST** advance objective reality through due
+scheduled consequences whenever simulation time advances, whether or not any
+observer is present, active, or rendered.
+
+An event with a delayed consequence **MUST** record the schedule, due simulation
+time, and causal parent before its consequence is resolved. A consequence **MUST
+NOT** be skipped because no perspective observes it, and it **MUST NOT** be created
+only because a later observer asks about it.
+
+Events at the same simulation time **MUST** resolve using a documented total order.
+The order **MUST** be derived from durable event fields, not process timing, model
+output, database return order, or client arrival order. Replay of the same event
+stream and pinned runtime/world versions **MUST** produce the same objective
+projection and causal history.
+
+Narration and observation events **MUST NOT** mutate objective reality. A narrated
+outcome **MUST** be traceable to committed causal history; a renderer **MUST NOT**
+invent an objective consequence or omit a committed causal event to make a scene
+more convenient.
+
+## 7. Keep generated prose subordinate to state
 
 Generated narrative **MUST NOT** silently create, alter, or erase durable facts.
 Only committed events can do so. Rendering **SHOULD** cite the relevant state and
 canon context internally so it remains constrained by the simulation outcome.
 
-## 7. Favor replay over convenience
+## 8. Favor replay over convenience
 
 Equivalent inputs, pinned dependencies, and declared random outcomes **SHOULD**
 produce equivalent event streams. Nondeterministic dependencies **MUST** be
 identified at the adapter boundary and recorded whenever they affect state.
 
-## 8. Version public contracts
+## 9. Version public contracts
 
 Public schemas, event types, and world packs **MUST** carry versions. Breaking
 changes **MUST** provide migration or an intentional incompatibility boundary.
 Silent reinterpretation of saved sessions is prohibited.
 
-## 9. Protect players and source material
+## 10. Protect players and source material
 
 Deployments **MUST** have an explicit policy for sensitive content, privacy, and
 operator intervention. World packs **MUST NOT** redistribute source material
 without permission. Attribution, transformation, and original additions must be
 clear enough for maintainers to review.
 
-## 10. Test observable promises
+## 11. Test observable promises
 
 Every externally observable contract change **MUST** have a fixture or automated
 test. Tests should prefer behavior at boundaries—input, event, projection, and

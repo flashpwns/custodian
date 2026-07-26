@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://custodian.dev/schemas/runtime/scheduled-event/v1",
+  "title": "Custodian Scheduled Event v1",
+  "description": "A pending objective consequence that resolves when simulation time reaches due_at.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "due_at", "type", "payload", "scheduled_by", "priority"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "due_at": { "type": "integer", "minimum": 0 },
+    "type": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]+@v[1-9][0-9]*$" },
+    "payload": { "type": "object" },
+    "scheduled_by": { "type": "string", "format": "uuid" },
+    "priority": { "type": "integer" }
+  }
+}
