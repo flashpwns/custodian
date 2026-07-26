@@ -13,6 +13,7 @@ const beliefRecordSchema = require("./contracts/belief-record.schema.json");
 const decisionRequestSchema = require("./contracts/decision-request.schema.json");
 const decisionResultSchema = require("./contracts/decision-result.schema.json");
 const actionProposalSchema = require("./contracts/action-proposal.schema.json");
+const effectRequestSchema = require("./contracts/effect-request.schema.json");
 const projectionSchema = require("../state/schemas/objective-projection.schema.json");
 const worldPackSchema = require("./contracts/world-pack.schema.json");
 
@@ -22,6 +23,7 @@ const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
 ajv.addSchema(observationResultSchema);
 ajv.addSchema(actionProposalSchema);
+ajv.addSchema(effectRequestSchema);
 const validateEvent = ajv.compile(eventSchema);
 const validateObservationRequest = ajv.compile(observationRequestSchema);
 const validateObserverContext = ajv.compile(observerContextSchema);
