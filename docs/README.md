@@ -37,6 +37,8 @@ and Reference World Packs fit together without weakening persistence or continui
   deterministic world-pack execution and canonical effect materialization.
 - [`architecture/constitutional-director.md`](architecture/constitutional-director.md)
   defines deterministic tick scheduling and simulation completion.
+- [`architecture/public-session-api.md`](architecture/public-session-api.md)
+  defines the stable external session and persistence boundary.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 

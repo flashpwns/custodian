@@ -27,3 +27,7 @@ phase order, observer order, event bytes, projection identity, and local state.
 
 Narration, dialogue, rendering, UI, CLI, LLM integration, and planning changes are
 outside the Director.
+
+External consumers enter through the Public Session API. It validates and packages
+session requests before delegating a tick to the Director; it does not alter the
+Director's ordering or epistemic-policy boundaries.

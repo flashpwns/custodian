@@ -17,3 +17,7 @@ depend on ambient I/O, or use uncontrolled randomness during reduction.
 The `reference-convergence` pack is deliberately generic. It is not the Kane
 Pixels Backrooms pack and demonstrates the stable interface without asserting new
 canon.
+
+The Public Session API uses the World-Pack Runtime Adapter before handing a pack
+to the Constitutional Director. Consumers never execute world-pack code or call
+reducers directly; only validated declarative content crosses the boundary.
