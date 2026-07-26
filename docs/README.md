@@ -47,6 +47,15 @@ and Reference World Packs fit together without weakening persistence or continui
   boundary, and release-candidate checks.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
+- [`guides/five-minute-world-pack.md`](guides/five-minute-world-pack.md) creates
+  and validates a first declarative pack using only public APIs.
+- [`guides/world-pack-authoring.md`](guides/world-pack-authoring.md) defines
+  manifest, scenario, capability, effect, compatibility, and security ownership.
+- [`community.md`](community.md) records the pending Discussions categories and
+  recommended repository topics without claiming those GitHub settings exist.
+- [`releases/release-checklist.md`](releases/release-checklist.md) and
+  [`releases/v1.0.0.md`](releases/v1.0.0.md) define prepared release procedure
+  and notes.
 
 Documentation is normative only when it explicitly says **Normative**. JSON Schema
 files and the constitution are normative by default; explanatory prose is not.

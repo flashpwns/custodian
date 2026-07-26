@@ -1,7 +1,8 @@
 # Compatibility, migration, and release policy
 
-**Normative.** Custodian currently prepares the release candidate
-`0.1.0-rc.1`; it is not a published package and not a `v1.0.0` tag.
+**Normative.** Custodian prepares `1.0.0` on its release branch. It is not a
+published package and not a `v1.0.0` tag until that branch is merged, main is
+revalidated, and the post-merge release procedure is completed.
 
 Compatibility has independent dimensions:
 

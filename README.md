@@ -1,138 +1,152 @@
 # Custodian
 
-Custodian is a reusable framework for persistent, canon-aware narrative simulations.
-It separates the rules that make a simulation durable—events, state, continuity,
-and adjudication—from the setting-specific material that gives a world its voice.
+Custodian is a deterministic constitutional simulation framework for building
+replayable worlds with external declarative world packs.
 
-Custodian is organized as a **Constitutional Kernel**, a versioned **World Pack
-API**, and independently versioned **Reference World Packs**. The first reference
-world pack is **Kane Pixels Backrooms**: a constrained, archival simulation of an
-anomalous space, its exploration, and the records created around it. It is a
-reference implementation of Custodian, not a replacement for the source material.
+It solves the continuity problem in persistent simulations: durable objective
+history, causal ordering, observer-local information, and physical outcomes are
+kept separate so that a session can be inspected, exported, restored, and
+replayed without inventing past truth.
 
-> **Status:** constitutional reference architecture. The repository provides
-> deterministic reference executors and fixtures for knowledge, time, evidence,
-> agency, memory, social state, communication, planning, objective physical
-> environments, and observer-local perception; it is not a production deployment
-> engine.
-
-## Why Custodian
-
-Persistent roleplay usually fails at the seams: a compelling turn contradicts an
-earlier fact, a model invents authority it does not have, or a saved session cannot
-be replayed. Custodian treats those seams as first-class design constraints.
-
-- **Persistent:** append-only events make sessions replayable and auditable.
-- **Deterministic where it matters:** state is a derived projection, not a second
-  source of truth.
-- **Canon-aware:** world facts carry provenance and confidence instead of being
-  flattened into prompt text.
-- **Perspective-bounded:** objective reality, observation, knowledge, belief, and
-  narrative revelation remain distinct.
-- **Portable:** a world pack can change without changing core runtime contracts.
-- **Human-governed:** unresolved canon and safety-sensitive outcomes remain
-  explicit decisions.
-
-## Repository map
-
-| Path | Responsibility |
-| --- | --- |
-| [`constitution/`](constitution/README.md) | Non-negotiable engineering and narrative principles. |
-| [`runtime/`](runtime/README.md) | Constitutional Kernel execution contracts and event protocol. |
-| [`state/`](state/README.md) | Durable session projection model and JSON schemas. |
-| [`canon/`](canon/README.md) | World Pack API content and reference world packs. |
-| [`examples/`](examples/README.md) | Small, inspectable examples of valid Custodian artifacts. |
-| [`tests/`](tests/README.md) | Contract fixtures and the validation strategy. |
-| [`docs/`](docs/README.md) | Architecture, authoring, and operational documentation. |
-
-## Architecture identity
-
-```text
-Custodian
-└── Constitutional Kernel
-    ├── Public Session API
-    ├── World Pack API
-    └── Reference World Packs
-        └── Kane Pixels Backrooms (first reference pack)
+```mermaid
+flowchart LR
+  P[Declarative world pack] --> A[World-Pack Adapter]
+  A --> S[Public Session API]
+  S --> D[Constitutional Director]
+  D --> H[Canonical history]
+  H --> R[Deterministic replay]
+  R --> O[Objective projection]
 ```
 
-## Core model
+## What makes it different
 
-```text
-player intent → adjudication → event log → state projection → narrative response
-                         ↑                         ↓
-                    world pack ───────────── continuity checks
-```
+Custodian treats objective reality, perception, knowledge, belief, memory,
+planning, and narration as different constitutional layers. Objective reality
+advances only through committed canonical events. World packs declare content
+and deterministic rules; they never mutate runtime state or execute arbitrary
+code. **Mystery is incomplete information, not withheld information.**
 
-The event log is authoritative. A runtime evaluates an intent against the current
-projection and the selected world pack, records one or more events, rebuilds the
-projection, then produces a response grounded in that result.
+## What works today
 
-## Quick orientation
+- Canonical event history, deterministic ordering, replay, checkpoints, and
+  objective projections.
+- Observer-local perception, knowledge, belief, memory, relationships, planning,
+  decisions, action proposals, execution, and effects.
+- Physical topology, objects, resources, environmental conditions, hazards,
+  evidence, communication, and the Constitutional Director.
+- Public session creation, advancement, inspection, export, and restoration.
+- External declarative world-pack validation and deterministic conformance.
 
-1. Read the [constitution](constitution/PRINCIPLES.md) for the rules every runtime
-   and world pack must honor.
-2. Read the [architecture overview](docs/architecture/overview.md) for boundaries
-   and the session lifecycle.
-3. Inspect the [minimal session example](examples/minimal-session/README.md).
-4. Use [`runtime/contracts/event-envelope.schema.json`](runtime/contracts/event-envelope.schema.json)
-   and [`state/schemas/session-state.schema.json`](state/schemas/session-state.schema.json)
-   as the initial integration contracts.
-5. Author a new setting as a world pack; do not fork the runtime to encode setting
-   facts.
+Custodian is a framework, not a complete game engine. It deliberately does not
+include narration, an LLM, a graphical interface, multiplayer networking,
+remote pack discovery, or executable pack plugins.
 
-## Reference kernel
+## Install and run
 
-Custodian now includes a deterministic reference kernel and a deliberately small
-generic world pack. Run `npm test` for all validation, `npm run validate` for
-canonical contract/projection checks, and `npm run demo` for a structured two-room
-simulation and replay comparison. Perception is a structured, projection-pinned
-observer-local acquisition boundary; attention, scene projection, disclosure
-policy, narration, and LLM rendering are intentionally not implemented yet.
-
-External software should use the Public Session API for deterministic creation,
-advancement, inspection, export, and restoration. It validates declarative world
-packs and returns defensive snapshots; reducers and the Director remain internal.
-
-## External world packs
-
-Custodian is release-candidate ready as a deterministic constitutional
-simulation framework. An independently authored pack is declarative data, not
-an executable plugin: validate it through the package root or locally with:
+Custodian requires Node.js 20 or newer.
 
 ```sh
+git clone https://github.com/flashpwns/Kane-Parsons-Backrooms---AI-Based-Roleplay-Interface.git
+cd Kane-Parsons-Backrooms---AI-Based-Roleplay-Interface
+npm ci
+npm test
+npm run validate
+npm run demo
+npm run replay
+```
+
+Run the learning example or the technical external fixture:
+
+```sh
+npm run conformance -- examples/signal-room --json
 npm run conformance -- external-fixtures/signal-room --json
 ```
 
-The neutral Signal Room fixture proves the public flow—conformance, session
-creation, deterministic advancement, export, restoration, and continuation—by
-using no private runtime imports. See the [world-pack conformance guide](docs/architecture/world-pack-conformance.md)
-and [release compatibility policy](docs/architecture/release-compatibility.md).
+## Create a world pack
 
-Custodian v1 will not provide narration, a game UI, a general gameplay CLI, an
-LLM, a built-in fictional setting, remote package loading, or executable
-world-pack plugins.
+Use the official starter locally:
 
-## Scope and non-goals
+```sh
+npm run create-worldpack -- my-world
+cd my-world
+npm install
+npm run conformance
+```
 
-Custodian specifies the durable boundary between an engine and a world pack. It
-does not mandate a model provider, user interface, database, prompt format, or
-content-rating policy. Those choices belong to adapters and deployments.
+After Custodian is published, the same tool is available through its package
+binary:
 
-The Kane Pixels Backrooms pack is a fan-made interpretive implementation. Names,
-characters, and source material remain the property of their respective owners.
-See its [world-pack policy](canon/kane-pixels-backrooms/README.md) before adding
-source-derived material.
+```sh
+npx --package=custodian create-custodian-worldpack my-world
+```
 
-## Contributing
+The generated pack is valid unchanged. Edit its `manifest.json` and
+`scenario.json`, then rerun conformance. See the [five-minute tutorial](docs/guides/five-minute-world-pack.md)
+and the [full authoring guide](docs/guides/world-pack-authoring.md).
 
-Changes should preserve the boundaries described in this repository. In particular,
-new behavior belongs in `runtime/`; setting facts belong in `canon/`; durable data
-contracts belong in `state/`; and every contract change needs a fixture in `tests/`.
-See [documentation guidance](docs/guides/contributing.md).
+## Minimal public API
 
-## License
+Only import the package root; reducers, Director internals, and replay mutation
+helpers are not public API.
 
-No license has been selected yet. Until one is added, do not assume permission to
-reuse, redistribute, or deploy this repository beyond applicable default copyright
-law.
+```js
+const {
+  createSession,
+  advanceSession,
+  exportSession,
+  restoreSession
+} = require("custodian");
+
+const created = createSession({ world_pack, scenario });
+if (!created.ok) throw created.error;
+
+const advanced = advanceSession({
+  session: created.session,
+  tick: { id: "tick-1", at: 1, observers: scenario.observers }
+});
+if (!advanced.ok) throw advanced.error;
+
+const exported = exportSession(advanced.session);
+const restored = restoreSession(exported.envelope);
+```
+
+The public package surface and conformance requirements are documented in the
+[World-Pack Conformance guide](docs/architecture/world-pack-conformance.md).
+Compatible packs declare `canonical-kernel@v1`; this is independent from the
+package version and is checked deterministically.
+
+## Constitutional boundaries
+
+```text
+objective reality → physical signals → perception → knowledge → belief
+→ planning → decision → action proposal → execution → committed event
+```
+
+Plans, messages, beliefs, memories, relationships, and future narration cannot
+directly mutate objective reality. Narration projects simulation state; it never
+creates truth. Read the [constitution](constitution/PRINCIPLES.md) and the
+[architecture index](docs/README.md) before extending the framework.
+
+## Project identity and status
+
+Custodian began as a Kane Pixels Backrooms roleplay project and evolved into a
+setting-independent framework. Its Backrooms implementation is an external
+reference world pack, not the identity of the kernel; Custodian contains no
+required fictional canon and has no affiliation with Kane Parsons or other
+rights holders. The historic repository name remains for continuity. A future
+repository rename to `custodian` is recommended but intentionally not performed
+automatically.
+
+Version `1.0.0` is prepared on the release branch; its tag and GitHub Release
+are created only after the release PR is merged and main is revalidated.
+
+## Participate
+
+- [Contributing](CONTRIBUTING.md)
+- [Security reporting](SECURITY.md)
+- [Support policy](SUPPORT.md)
+- [Community world-pack showcase](WORLD_PACKS.md)
+- [Release notes](docs/releases/v1.0.0.md)
+
+Custodian is MIT licensed; see [LICENSE](LICENSE). Please use the public
+contracts and keep third-party content independently licensed.
