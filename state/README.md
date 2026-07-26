@@ -20,6 +20,11 @@ pending scheduled consequences. Pending work is durable state: time advancement
 resolves it whether or not observers are present. It must never be inferred only
 when an observer asks for a scene.
 
+Evidence is also durable objective state. Each item records its origin, physical or
+recorded form, availability, fidelity, completeness, provenance, and retained
+claims. Destroyed evidence remains as a destroyed historical object; it cannot be
+used to create later information paths.
+
 ## Projection rules
 
 - Apply events in strictly increasing `sequence` order.

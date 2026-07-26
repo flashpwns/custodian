@@ -24,3 +24,7 @@ The simulation-time fixture executes the reference timeline twice and verifies
 identical replay, scheduled consequences without observers, stable concurrent
 ordering, unchanged time across perspectives, and narration's causal-history
 boundary.
+
+The evidence fixture verifies observer-independent recording, evidence-only
+knowledge, survival and destruction across time, bounded partial records, forged
+beliefs, and deterministic preservation of evidence chains.

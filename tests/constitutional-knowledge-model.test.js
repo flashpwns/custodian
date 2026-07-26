@@ -34,7 +34,7 @@ for (const [observerId, observer] of Object.entries(state.observers)) {
     const informationPath = pathById.get(knowledge.path_id);
     assert.ok(informationPath, "knowledge must name an information path");
     assert.equal(informationPath.recipient_id, observerId, "knowledge path must be addressed to its observer");
-    const source = eventById.get(informationPath.source_event);
+    const source = eventById.get(informationPath.source.id);
     const delivery = eventById.get(informationPath.delivery_event);
     assert.ok(source && delivery, "knowledge path endpoints must be committed events");
     assert.ok(source.simulation_time <= informationPath.delivered_at, "information cannot arrive before its source");

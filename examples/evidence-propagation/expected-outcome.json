@@ -1,0 +1,7 @@
+{
+  "simulation_time": 12,
+  "objective_reality": { "reactor.running": false, "airlock.sealed": true },
+  "destroyed_evidence": ["sensor-log-1"],
+  "surviving_evidence": ["forged-airlock-report", "heat-trace-1", "maintenance-note"],
+  "history_ids": ["reactor-trip", "record-damaged-maintenance-note", "analyst-reads-sensor", "inspector-reads-note", "plant-forgery", "courier-reads-forgery", "sensor-log-destroyed", "late-analyst-reads-sensor"]
+}

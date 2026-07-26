@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://custodian.dev/schemas/state/session-state/v3",
-  "title": "Custodian Session State v3",
+  "$id": "https://custodian.dev/schemas/state/session-state/v4",
+  "title": "Custodian Session State v4",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "timeline", "entities", "objective_reality", "observers"],
+  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "timeline", "entities", "objective_reality", "evidence", "observers"],
   "properties": {
-    "schema_version": { "const": "3.0.0" },
+    "schema_version": { "const": "4.0.0" },
     "session_id": { "type": "string", "minLength": 1 },
     "world": {
       "type": "object",
@@ -49,6 +49,7 @@
         }
       }
     },
+    "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } },
     "information_paths": { "type": "array", "items": { "type": "object" } },
     "observers": {
       "type": "object",
@@ -92,6 +93,18 @@
         "id": { "type": "string" }, "due_at": { "type": "integer", "minimum": 0 },
         "type": { "type": "string" }, "payload": { "type": "object" }, "scheduled_by": { "type": "string", "format": "uuid" },
         "priority": { "type": "integer" }
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "origin_event", "created_at", "availability", "completeness", "fidelity", "provenance", "claims"],
+      "properties": {
+        "id": { "type": "string" }, "kind": { "enum": ["recording", "artifact", "environmental_trace", "sensor_output", "durable_record"] },
+        "origin_event": { "type": "string", "format": "uuid" }, "created_at": { "type": "integer", "minimum": 0 },
+        "availability": { "enum": ["available", "damaged", "destroyed"] }, "destroyed_by": { "type": "string", "format": "uuid" },
+        "completeness": { "type": "number", "minimum": 0, "maximum": 1 }, "fidelity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "provenance": { "enum": ["captured", "collected", "generated", "forged"] },
+        "claims": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
       }
     }
   }

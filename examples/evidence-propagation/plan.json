@@ -1,0 +1,40 @@
+{
+  "target_time": 12,
+  "initial_reality": { "reactor.running": true, "airlock.sealed": true },
+  "entries": [
+    {
+      "id": "reactor-trip", "at": 0,
+      "operation": {
+        "kind": "occur",
+        "changes": [{ "fact_id": "reactor.running", "value": false }],
+        "evidence": [
+          { "id": "sensor-log-1", "kind": "sensor_output", "availability": "available", "completeness": 1, "fidelity": 1, "provenance": "captured", "claims": ["reactor.running=false"] },
+          { "id": "heat-trace-1", "kind": "environmental_trace", "availability": "available", "completeness": 0.7, "fidelity": 0.8, "provenance": "collected", "claims": ["reactor-heat-spike"] }
+        ]
+      }
+    },
+    {
+      "id": "record-damaged-maintenance-note", "at": 2,
+      "operation": {
+        "kind": "occur",
+        "evidence": [
+          { "id": "maintenance-note", "kind": "durable_record", "availability": "damaged", "completeness": 0.4, "fidelity": 0.6, "provenance": "collected", "claims": ["airlock.seal-wear"] }
+        ]
+      }
+    },
+    { "id": "analyst-reads-sensor", "at": 3, "operation": { "kind": "access", "observer_id": "analyst", "evidence_id": "sensor-log-1", "channel": "sensor_console", "mode": "knowledge" } },
+    { "id": "inspector-reads-note", "at": 4, "operation": { "kind": "access", "observer_id": "inspector", "evidence_id": "maintenance-note", "channel": "archive", "mode": "knowledge" } },
+    {
+      "id": "plant-forgery", "at": 5,
+      "operation": {
+        "kind": "occur",
+        "evidence": [
+          { "id": "forged-airlock-report", "kind": "artifact", "availability": "available", "completeness": 1, "fidelity": 1, "provenance": "forged", "claims": ["airlock.sealed=false"] }
+        ]
+      }
+    },
+    { "id": "courier-reads-forgery", "at": 6, "operation": { "kind": "access", "observer_id": "courier", "evidence_id": "forged-airlock-report", "channel": "artifact_inspection", "mode": "belief" } },
+    { "id": "sensor-log-destroyed", "at": 7, "operation": { "kind": "destroy", "evidence_id": "sensor-log-1" } },
+    { "id": "late-analyst-reads-sensor", "at": 8, "operation": { "kind": "access", "observer_id": "late-analyst", "evidence_id": "sensor-log-1", "channel": "sensor_console", "mode": "knowledge" } }
+  ]
+}

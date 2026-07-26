@@ -7,6 +7,8 @@ weakening persistence or continuity.
   ownership, and the session lifecycle.
 - [`architecture/simulation-time.md`](architecture/simulation-time.md) defines
   deterministic progression, scheduling, concurrency, and replay.
+- [`architecture/evidence-propagation.md`](architecture/evidence-propagation.md)
+  defines durable evidence and bounded indirect observation.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
