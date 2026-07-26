@@ -1,0 +1,3 @@
+"use strict";
+function replayEnvironment(plan){const positions={...plan.positions},containment={...plan.containment},history=[];for(const m of [...plan.moves].sort((a,b)=>a.at-b.at||a.id.localeCompare(b.id))){const c=plan.connections.find(x=>x.from===m.origin&&x.to===m.destination);const ok=positions[m.agent]===m.origin&&c?.traversable&&!(plan.occupancy[m.destination]>=plan.locations[m.destination].capacity);if(ok){positions[m.agent]=m.destination;plan.occupancy[m.origin]--;plan.occupancy[m.destination]++;}history.push({id:m.id,status:ok?"succeeded":"blocked",position:positions[m.agent]});}return {positions,containment,history};}
+module.exports={replayEnvironment};

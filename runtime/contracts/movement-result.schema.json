@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/movement-result/v1","type":"object","required":["proposal","status","position"],"properties":{"proposal":{"type":"string"},"status":{"enum":["succeeded","blocked","failed","interrupted"]},"position":{"type":"string"}}}

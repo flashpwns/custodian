@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://custodian.dev/schemas/runtime/location/v1","type":"object","required":["id","region","capacity"],"properties":{"id":{"type":"string"},"region":{"type":"string"},"capacity":{"type":"integer"}}}
