@@ -9,6 +9,8 @@ weakening persistence or continuity.
   deterministic progression, scheduling, concurrency, and replay.
 - [`architecture/evidence-propagation.md`](architecture/evidence-propagation.md)
   defines durable evidence and bounded indirect observation.
+- [`architecture/agency-decision.md`](architecture/agency-decision.md) defines
+  proposal-based agency and deterministic execution.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 

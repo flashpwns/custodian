@@ -1,0 +1,10 @@
+{
+  "initial_reality": { "door.clear": true, "door.open": false, "access.granted": false },
+  "entries": [
+    { "id": "goal-scout", "kind": "goal", "agent_id": "agent-a", "goal_id": "goal-exit", "plan_id": "plan-exit", "at": 0, "priority": 0, "statement": "Reach the exit.", "intent": "Open the door." },
+    { "id": "proposal-alpha-open", "kind": "proposal", "agent_id": "agent-a", "plan_id": "plan-exit", "at": 1, "priority": 0, "requires": { "fact_id": "door.clear", "value": true }, "effect": { "fact_id": "door.open", "value": true } },
+    { "id": "proposal-bravo-close", "kind": "proposal", "agent_id": "agent-a", "plan_id": "plan-exit", "at": 1, "priority": 0, "requires": { "fact_id": "door.clear", "value": true }, "effect": { "fact_id": "door.open", "value": false } },
+    { "id": "proposal-force-access", "kind": "proposal", "agent_id": "agent-a", "plan_id": "plan-exit", "at": 2, "priority": 0, "requires": { "fact_id": "access.granted", "value": true }, "effect": { "fact_id": "door.open", "value": true } },
+    { "id": "proposal-route", "kind": "proposal", "agent_id": "agent-a", "plan_id": "plan-exit", "at": 3, "priority": 0, "interrupt": "structural_alarm", "requires": { "fact_id": "door.clear", "value": true }, "effect": { "fact_id": "door.open", "value": true } }
+  ]
+}

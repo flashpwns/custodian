@@ -40,6 +40,13 @@ an evidence object or directly perceived an event; evidence-derived knowledge is
 limited to the claims retained by that object. A forgery can influence belief but
 never changes the underlying objective fact.
 
+## Agency and execution
+
+Agents hold goals, intentions, plans, and decision context as epistemic state.
+They submit action proposals; the deterministic runtime evaluates constraints and
+records success, failure, delay, or interruption. Only committed success changes
+objective reality.
+
 ## Contract surface
 
 - [`contracts/event-envelope.schema.json`](contracts/event-envelope.schema.json)

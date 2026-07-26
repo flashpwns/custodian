@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://custodian.dev/schemas/runtime/execution-result/v1",
+  "title": "Custodian Execution Result v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["proposal_id", "status", "at"],
+  "properties": {
+    "proposal_id": { "type": "string" }, "status": { "enum": ["succeeded", "failed", "delayed", "interrupted"] },
+    "at": { "type": "integer", "minimum": 0 }, "reason": { "type": "string" }, "committed_event": { "type": "string" }
+  }
+}

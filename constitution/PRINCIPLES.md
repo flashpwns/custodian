@@ -116,20 +116,32 @@ Equivalent inputs, pinned dependencies, and declared random outcomes **SHOULD**
 produce equivalent event streams. Nondeterministic dependencies **MUST** be
 identified at the adapter boundary and recorded whenever they affect state.
 
-## 10. Version public contracts
+## 10. Keep agency separate from outcome
+
+**Agency proposes actions. The simulation determines outcomes.** Agents, goals,
+intentions, plans, and decision context are epistemic state. They **MUST NOT**
+change objective reality merely by being formed, selected, or narrated.
+
+An action proposal **MUST** be evaluated against committed objective state and
+produce a durable execution result: succeeded, failed, delayed, or interrupted.
+Only a successful, committed execution event may change objective reality. Failure
+and interruption are valid replayable outcomes and plans remain historically
+visible after either result.
+
+## 11. Version public contracts
 
 Public schemas, event types, and world packs **MUST** carry versions. Breaking
 changes **MUST** provide migration or an intentional incompatibility boundary.
 Silent reinterpretation of saved sessions is prohibited.
 
-## 11. Protect players and source material
+## 12. Protect players and source material
 
 Deployments **MUST** have an explicit policy for sensitive content, privacy, and
 operator intervention. World packs **MUST NOT** redistribute source material
 without permission. Attribution, transformation, and original additions must be
 clear enough for maintainers to review.
 
-## 12. Test observable promises
+## 13. Test observable promises
 
 Every externally observable contract change **MUST** have a fixture or automated
 test. Tests should prefer behavior at boundaries—input, event, projection, and
