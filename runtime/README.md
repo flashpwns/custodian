@@ -47,6 +47,16 @@ They submit action proposals; the deterministic runtime evaluates constraints an
 records success, failure, delay, or interruption. Only committed success changes
 objective reality.
 
+## Environment and material effects
+
+The environment is objective state rather than narrative scenery. Spatial and
+resource resolution validate movement, containment, custody, capacity, transfer,
+and conservation. The environmental resolver advances conditions, hazards,
+exposure, decay, propagation, damage, repair, affordances, and scheduled topology
+changes. Agent-initiated material effects must arrive as committed agency results;
+communication, planning, memory, trust, and narration can only affect the
+epistemic path to a proposal.
+
 ## Contract surface
 
 - [`contracts/event-envelope.schema.json`](contracts/event-envelope.schema.json)
@@ -63,6 +73,21 @@ objective reality.
   defines an action's deterministic timeline position.
 - [`contracts/evidence.schema.json`](contracts/evidence.schema.json) defines a
   durable recording, artifact, trace, sensor output, or record.
+- [`contracts/location.schema.json`](contracts/location.schema.json),
+  [`contracts/spatial-connection.schema.json`](contracts/spatial-connection.schema.json),
+  and [`contracts/containment.schema.json`](contracts/containment.schema.json)
+  define objective spatial state.
+- [`contracts/object.schema.json`](contracts/object.schema.json),
+  [`contracts/custody.schema.json`](contracts/custody.schema.json), and the
+  `resource-*.schema.json` contracts separate inventory, ownership, custody,
+  reservation, allocation, transfer, and quantity.
+- [`contracts/environmental-condition.schema.json`](contracts/environmental-condition.schema.json),
+  [`contracts/hazard.schema.json`](contracts/hazard.schema.json),
+  [`contracts/exposure.schema.json`](contracts/exposure.schema.json),
+  [`contracts/damage-state.schema.json`](contracts/damage-state.schema.json),
+  [`contracts/repair-result.schema.json`](contracts/repair-result.schema.json),
+  and [`contracts/topology-change.schema.json`](contracts/topology-change.schema.json)
+  define environmental state transitions.
 
 An implementation can add typed domain events, but each must fit inside the event
 envelope and have an explicit owner and compatibility policy.
