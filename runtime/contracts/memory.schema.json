@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://custodian.dev/schemas/runtime/memory/v1", "title": "Custodian Memory v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["id", "agent_id", "content", "formed_from", "formed_at", "confidence", "availability"],
+  "properties": {
+    "id": { "type": "string" }, "agent_id": { "type": "string" }, "content": { "type": "string" },
+    "formed_from": { "type": "string" }, "formed_at": { "type": "integer", "minimum": 0 },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 }, "availability": { "enum": ["active", "forgotten"] },
+    "associations": { "type": "array", "items": { "type": "string" } }
+  }
+}

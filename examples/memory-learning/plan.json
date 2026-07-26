@@ -1,0 +1,13 @@
+{
+  "objective_reality": { "bridge.safe": true },
+  "entries": [
+    { "id": "experience-bridge-1", "kind": "form", "agent_id": "agent-a", "memory_id": "memory-bridge", "at": 1, "source": "direct-observation-1", "content": "The bridge held.", "gain": 0.4, "associations": ["bridge→cross"] },
+    { "id": "experience-bridge-2", "kind": "form", "agent_id": "agent-a", "memory_id": "memory-bridge", "at": 2, "source": "damaged-record-1", "content": "The bridge held.", "gain": 0.2 },
+    { "id": "retrieve-bridge", "kind": "retrieve", "memory_id": "memory-bridge", "at": 4 },
+    { "id": "proposal-cross", "kind": "propose", "memory_id": "memory-bridge", "at": 5, "action": "cross bridge" },
+    { "id": "forget-bridge", "kind": "decay", "memory_id": "memory-bridge", "at": 8 },
+    { "id": "retrieve-forgotten", "kind": "retrieve", "memory_id": "memory-bridge", "at": 9 },
+    { "id": "form-false-alarm", "kind": "form", "agent_id": "agent-a", "memory_id": "memory-alarm", "at": 10, "source": "forged-record", "content": "The bridge is unsafe.", "gain": 0.5 },
+    { "id": "proposal-avoid", "kind": "propose", "memory_id": "memory-alarm", "at": 11, "action": "avoid bridge" }
+  ]
+}

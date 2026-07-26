@@ -134,14 +134,27 @@ Public schemas, event types, and world packs **MUST** carry versions. Breaking
 changes **MUST** provide migration or an intentional incompatibility boundary.
 Silent reinterpretation of saved sessions is prohibited.
 
-## 12. Protect players and source material
+## 12. Preserve memory without confusing it with truth
+
+**Memory is an agent's persistent internal representation of prior experience.**
+Memory, recollection, confidence, decay, and learned associations are agent-local
+epistemic state, not objective reality. Direct observation and evidence may form
+memory according to recorded experience, but incomplete or damaged sources **MUST**
+bound the resulting memory.
+
+Memory retrieval **MUST** be a durable event. Remembering is not truth, and an
+incorrect recollection may influence an agent's proposal without changing objective
+history. Forgetting and decay **MUST NOT** erase formation history: a replay can
+recover that a memory existed and how it changed.
+
+## 13. Protect players and source material
 
 Deployments **MUST** have an explicit policy for sensitive content, privacy, and
 operator intervention. World packs **MUST NOT** redistribute source material
 without permission. Attribution, transformation, and original additions must be
 clear enough for maintainers to review.
 
-## 13. Test observable promises
+## 14. Test observable promises
 
 Every externally observable contract change **MUST** have a fixture or automated
 test. Tests should prefer behavior at boundaries—input, event, projection, and

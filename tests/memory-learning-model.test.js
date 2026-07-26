@@ -1,0 +1,14 @@
+const assert = require("node:assert/strict");
+const fs = require("node:fs"); const path = require("node:path");
+const { replayMemory } = require("../runtime/reference/memory.js");
+const plan = JSON.parse(fs.readFileSync(path.join(__dirname, "../examples/memory-learning/plan.json"), "utf8"));
+const first = replayMemory(plan); const second = replayMemory(plan);
+assert.deepEqual(first, second, "replay preserves formation and retrieval history");
+const bridge = first.memories.find((memory) => memory.id === "memory-bridge");
+assert.equal(bridge.confidence, 0.6, "repeated experience strengthens confidence with bounded evidence gain");
+assert.equal(bridge.availability, "forgotten", "decay marks memory forgotten without erasing it");
+assert.ok(first.history.some((event) => event.id === "retrieve-bridge" && event.kind === "retrieval"), "retrieval is an event independent of perception");
+assert.ok(first.history.some((event) => event.id === "retrieve-forgotten" && event.kind === "retrieval"), "forgotten memory remains recoverable through replay history");
+assert.equal(first.objective_reality["bridge.safe"], true, "memories never modify objective reality");
+assert.deepEqual(first.proposals.map((proposal) => proposal.influenced_by), ["memory-bridge", "memory-alarm"], "learned associations and incorrect memories influence later proposals");
+console.log("validated memory and learning model");

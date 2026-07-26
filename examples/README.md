@@ -13,6 +13,8 @@ without requiring a particular language runtime or provider.
   records, indirect observation, destruction, bounded knowledge, and forgery.
 - [`agency-decision/`](agency-decision/plan.json) demonstrates goal formation,
   constraints, interruption, and deterministic execution.
+- [`memory-learning/`](memory-learning/plan.json) demonstrates formation, decay,
+  retrieval, and memory-influenced proposals.
 
 Examples are intentionally fictional and do not assert new canon for any world
 pack.
