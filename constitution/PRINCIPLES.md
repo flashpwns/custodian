@@ -51,6 +51,11 @@ path. A belief **MUST NOT** be promoted to objective reality merely because it i
 widely held. A narrative renderer **MUST NOT** disclose objective facts outside its
 declared perspective except through explicitly authorized out-of-world interfaces.
 
+Knowledge acquisition **MUST** preserve observer, proposition, basis, and causal
+provenance. Once acquired it is immutable historical observer state. Belief
+formation and revision **MUST** preserve provenance and prior records; correction
+adds a later interpretation rather than rewriting history.
+
 ## 5. Make causality, time, and propagation explicit
 
 Every event that changes objective reality **MUST** carry simulation time and an
@@ -127,6 +132,12 @@ produce a durable execution result: succeeded, failed, delayed, or interrupted.
 Only a successful, committed execution event may change objective reality. Failure
 and interruption are valid replayable outcomes and plans remain historically
 visible after either result.
+
+A constitutional decision evaluator **MUST** be pure and projection-pinned. It may
+read explicit goals, plans, and observer-local perceptions, knowledge, and beliefs
+to return structured action proposals. It **MUST NOT** mutate state, resolve truth,
+create narration, or commit an outcome. Only a later agency event makes a proposal
+durable.
 
 ## 11. Version public contracts
 

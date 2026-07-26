@@ -31,6 +31,8 @@ and Reference World Packs fit together without weakening persistence or continui
   content.
 - [`architecture/perception-projection.md`](architecture/perception-projection.md)
   defines projection-pinned observer-local perceptual acquisition.
+- [`architecture/epistemic-decision-pipeline.md`](architecture/epistemic-decision-pipeline.md)
+  defines provenance-bounded knowledge, belief revision, and pure action proposals.
 - [`guides/contributing.md`](guides/contributing.md) explains how to propose a
   runtime change, world pack, contract, or fixture.
 
