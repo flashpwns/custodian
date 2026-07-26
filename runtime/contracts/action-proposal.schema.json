@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://custodian.dev/schemas/runtime/action-proposal/v1",
+  "title": "Custodian Action Proposal v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["id", "agent_id", "goal_id", "at", "priority", "intent", "decision_context"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 }, "agent_id": { "type": "string", "minLength": 1 }, "goal_id": { "type": "string", "minLength": 1 },
+    "at": { "type": "integer", "minimum": 0 }, "priority": { "type": "integer" }, "intent": { "type": "string", "minLength": 1 },
+    "decision_context": { "type": "object" }, "plan_id": { "type": "string" }
+  }
+}

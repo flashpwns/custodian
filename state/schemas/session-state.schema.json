@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://custodian.dev/schemas/state/session-state/v4",
-  "title": "Custodian Session State v4",
+  "$id": "https://custodian.dev/schemas/state/session-state/v5",
+  "title": "Custodian Session State v5",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "timeline", "entities", "objective_reality", "evidence", "observers"],
+  "required": ["schema_version", "session_id", "world", "projected_through", "simulation_time", "timeline", "entities", "objective_reality", "evidence", "observers", "agents"],
   "properties": {
-    "schema_version": { "const": "4.0.0" },
+    "schema_version": { "const": "5.0.0" },
     "session_id": { "type": "string", "minLength": 1 },
     "world": {
       "type": "object",
@@ -64,6 +64,7 @@
         }
       }
     },
+    "agents": { "type": "object", "additionalProperties": { "$ref": "#/$defs/agent" } },
     "world_state": { "type": "object", "additionalProperties": true }
   },
   "$defs": {
@@ -105,6 +106,15 @@
         "completeness": { "type": "number", "minimum": 0, "maximum": 1 }, "fidelity": { "type": "number", "minimum": 0, "maximum": 1 },
         "provenance": { "enum": ["captured", "collected", "generated", "forged"] },
         "claims": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "agent": {
+      "type": "object", "additionalProperties": false,
+      "required": ["goals", "intentions", "plans"],
+      "properties": {
+        "goals": { "type": "array", "items": { "type": "object" } },
+        "intentions": { "type": "array", "items": { "type": "object" } },
+        "plans": { "type": "array", "items": { "type": "object" } }
       }
     }
   }

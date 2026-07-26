@@ -1,5 +1,5 @@
 {
-  "schema_version": "4.0.0",
+  "schema_version": "5.0.0",
   "session_id": "demo-session-001",
   "world": { "id": "kane-pixels-backrooms", "version": "0.1.0" },
   "projected_through": 2,
@@ -26,5 +26,6 @@
       "beliefs": []
     }
   },
+  "agents": {},
   "world_state": {}
 }
