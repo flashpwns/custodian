@@ -94,6 +94,25 @@ External software should use the Public Session API for deterministic creation,
 advancement, inspection, export, and restoration. It validates declarative world
 packs and returns defensive snapshots; reducers and the Director remain internal.
 
+## External world packs
+
+Custodian is release-candidate ready as a deterministic constitutional
+simulation framework. An independently authored pack is declarative data, not
+an executable plugin: validate it through the package root or locally with:
+
+```sh
+npm run conformance -- external-fixtures/signal-room --json
+```
+
+The neutral Signal Room fixture proves the public flow—conformance, session
+creation, deterministic advancement, export, restoration, and continuation—by
+using no private runtime imports. See the [world-pack conformance guide](docs/architecture/world-pack-conformance.md)
+and [release compatibility policy](docs/architecture/release-compatibility.md).
+
+Custodian v1 will not provide narration, a game UI, a general gameplay CLI, an
+LLM, a built-in fictional setting, remote package loading, or executable
+world-pack plugins.
+
 ## Scope and non-goals
 
 Custodian specifies the durable boundary between an engine and a world pack. It

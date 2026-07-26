@@ -21,3 +21,8 @@ canon.
 The Public Session API uses the World-Pack Runtime Adapter before handing a pack
 to the Constitutional Director. Consumers never execute world-pack code or call
 reducers directly; only validated declarative content crosses the boundary.
+
+External authors consume the package root and validate their content through the
+[world-pack conformance boundary](world-pack-conformance.md). Deep imports into
+runtime internals are unsupported. The adapter's accepted manifest is a stable
+data contract, not a license to run pack-authored JavaScript.
