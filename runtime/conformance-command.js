@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 const fs = require("node:fs"); const path = require("node:path"); const api = require("../index.js");
 const target = process.argv[2]; const json = process.argv.includes("--json");
