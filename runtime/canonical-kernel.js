@@ -16,6 +16,7 @@ const actionProposalSchema = require("./contracts/action-proposal.schema.json");
 const effectRequestSchema = require("./contracts/effect-request.schema.json");
 const projectionSchema = require("../state/schemas/objective-projection.schema.json");
 const worldPackSchema = require("./contracts/world-pack.schema.json");
+const startupSchema = require("./contracts/session-startup.schema.json");
 
 const ORDERING_POLICY = "time-phase-priority-sequence-id@v1";
 const phases = Object.freeze({ scheduled: 0, action: 1, consequence: 2, information: 3 });
@@ -36,6 +37,7 @@ const validateDecisionResult = ajv.compile(decisionResultSchema);
 const validateActionProposal = ajv.compile(actionProposalSchema);
 const validateProjection = ajv.compile(projectionSchema);
 const validateWorldPack = ajv.compile(worldPackSchema);
+const validateStartup = ajv.compile(startupSchema);
 
 function stable(value) {
   if (Array.isArray(value)) return `[${value.map(stable).join(",")}]`;
@@ -48,6 +50,7 @@ function fail(code, detail) { const error = new Error(`${code}: ${detail}`); err
 function valid(validator, value, code) { if (!validator(value)) fail(code, ajv.errorsText(validator.errors)); }
 
 const reducerDefinitions = Object.freeze([
+  { domain: "session", accepts: ["session."], reads: ["startup"], writes: ["startup", "knowledge", "resources"] },
   { domain: "time", accepts: ["time."], reads: ["timeline"], writes: ["timeline"] },
   { domain: "agency", accepts: ["agency."], reads: ["actions"], writes: ["actions"] },
   { domain: "environment", accepts: ["environment."], reads: ["environment"], writes: ["environment"] },
@@ -65,13 +68,22 @@ function initialState(pack) {
   valid(validateWorldPack, pack, "invalid_world_pack");
   const objective = structuredClone(pack.initial_objective);
   objective.observation_capabilities = structuredClone(pack.observation_capabilities ?? []);
-  return { objective, local: { plans: {}, memories: {}, relationships: {}, beliefs: {}, knowledge: {}, perceptions: {} }, applied: [], simulation_time: 0 };
+  return { objective, local: { plans: {}, memories: {}, relationships: {}, beliefs: {}, knowledge: {}, perceptions: {} }, startup: {}, applied: [], simulation_time: 0 };
 }
 function apply(state, event) {
   const reducer = reducerDefinitions.find((item) => item.domain === event.domain);
   if (!reducer || !reducer.accepts.some((prefix) => event.type.startsWith(prefix))) fail("illegal_domain_ownership", event.type);
   const next = structuredClone(state);
   const p = event.payload;
+  if (event.domain === "session") {
+    if (event.type !== "session.started") fail("invalid_session_start", event.type);
+    valid(validateStartup, p, "invalid_session_start");
+    const knowledge = p.knowledge ?? [], permissions = p.permissions ?? [], resources = p.resources ?? [];
+    if (knowledge.some((entry) => entry.observer_id !== p.player.observer_id) || permissions.some((entry) => entry.observer_id !== p.player.observer_id) || resources.some((entry) => entry.custodian !== p.player.observer_id)) fail("invalid_session_start", "startup assignment must target player observer");
+    next.startup = structuredClone({ ...p, knowledge, permissions, resources });
+    next.local.knowledge[p.player.observer_id] = structuredClone(knowledge);
+    next.objective.resources = { ...(next.objective.resources ?? {}), ...Object.fromEntries(resources.map((entry) => [entry.id, structuredClone(entry)])) };
+  }
   if (event.domain === "time") next.objective.timeline = { ...(next.objective.timeline ?? {}), ...p };
   if (event.domain === "agency") {
     if (event.type === "agency.action.proposed") valid(validateActionProposal, p, "invalid_action_proposal");

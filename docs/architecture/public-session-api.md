@@ -14,6 +14,34 @@ Expected failures expose only stable error codes and structured details. The API
 has no wall clock, random source, filesystem discovery, network loading, dynamic
 code execution, narration, or mutable handles.
 
+## Declarative startup profiles
+
+`createSession` optionally accepts a setting-neutral `startup` object. It is
+additive: callers without it retain the v1 creation behavior. A startup object
+names a profile, selects an existing scenario observer as the player, and may
+declare that observer's local knowledge references, interface permissions, and
+initial resource custody. It cannot alter pack facts, reducers, scenario
+authority, or hidden objective state.
+
+```js
+const session = createSession({
+  world_pack, scenario, seed_material: { seed: "example" },
+  startup: {
+    profile: { id: "field-operator" },
+    player: { observer_id: "operator-a", role: "operator" },
+    knowledge: [{ observer_id: "operator-a", kind: "instruction", reference: "briefing" }],
+    permissions: [{ observer_id: "operator-a", permission: "observe" }],
+    resources: [{ id: "survey-kit", custodian: "operator-a", quantity: 1 }]
+  }
+});
+```
+
+Creation validates the pack and scenario, validates startup, establishes the
+seed, replays the scenario objective state, then commits `session.started` as
+canonical history. Replay reconstructs the player-local startup data; export
+and restore therefore retain it. A permission authorizes an attempted public
+action or access surface only—it never guarantees success or changes physics.
+
 Session identity is `public-session@v1` plus a canonical digest of the adapted
 pack identity/content, scenario, canonical history, and explicit seed material.
 It is independent of input insertion order and process state. The history is

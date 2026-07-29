@@ -2,6 +2,12 @@
 
 All notable changes are documented here.
 
+## 1.1.0 — Unreleased
+
+- Add additive declarative, profile-aware session startup. Startup is replayed
+  through canonical `session.started` history and preserves player-local
+  knowledge, permissions, and initial resource custody through export/restore.
+
 ## 1.0.0 — Unreleased
 
 ### Added
