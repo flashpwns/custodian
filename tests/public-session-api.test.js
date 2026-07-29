@@ -2,7 +2,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const { stable } = require("../runtime/canonical-kernel.js");
-const { createSession, advanceSession, inspectSession, exportSession, restoreSession } = require("../runtime/session-api.js");
+const { createSession, advanceSession, inspectSession, exportSession, restoreSession, getAvailableSessionActions, submitSessionAction } = require("../runtime/session-api.js");
 
 const root = path.resolve(__dirname, "..");
 const pack = JSON.parse(fs.readFileSync(path.join(root, "canon/reference-convergence/manifest.json"), "utf8"));
@@ -43,6 +43,12 @@ assert.equal(bootstrapped.session.history[0].type, "session.started", "startup i
 assert.deepEqual(bootstrapped.session.startup.knowledge, startup.knowledge, "knowledge remains startup-local");
 assert.deepEqual(restoreSession(exportSession(bootstrapped.session).envelope).session.startup, bootstrapped.session.startup, "startup survives export and restore");
 assert.equal(createSession({ world_pack: pack, scenario, startup: { ...startup, player: { observer_id: "missing" } } }).error.code, "INVALID_SESSION");
+const actionStartup = { ...startup, permissions: [{ observer_id: "agent-a", permission: "extinguish-fire" }] };
+const actionSession = createSession({ world_pack: pack, scenario, startup: actionStartup, seed_material: { scenario_seed: "action" } });
+assert.deepEqual(getAvailableSessionActions({ session: actionSession.session, actor: "agent-a" }).actions, ["extinguish-fire"]);
+const actionResult = submitSessionAction({ session: actionSession.session, actor: "agent-a", action: "extinguish-fire" });
+assert.ok(actionResult.ok && actionResult.outcome === "succeeded", "public actions use the existing deterministic executor");
+assert.equal(submitSessionAction({ session: actionSession.session, actor: "agent-b", action: "extinguish-fire" }).error.code, "INVALID_TICK_REQUEST");
 const copied = inspectSession(first.session); copied.session.projection.objective.environment.hazards["fire-b"].active = true;
 assert.equal(inspectSession(first.session).session.projection.objective.environment.hazards["fire-b"].active, true, "public snapshots are defensive copies");
 console.log("validated public sessions, adapter compatibility, persistence, and restoration");
