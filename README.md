@@ -46,8 +46,8 @@ remote pack discovery, or executable pack plugins.
 Custodian requires Node.js 20 or newer.
 
 ```sh
-git clone https://github.com/flashpwns/Kane-Parsons-Backrooms---AI-Based-Roleplay-Interface.git
-cd Kane-Parsons-Backrooms---AI-Based-Roleplay-Interface
+git clone https://github.com/flashpwns/custodian.git
+cd custodian
 npm ci
 npm test
 npm run validate
