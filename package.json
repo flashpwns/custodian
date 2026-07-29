@@ -8,8 +8,8 @@
   "exports": { ".": "./index.js", "./package.json": "./package.json" },
   "files": ["index.js", "public-api.json", "runtime", "state/schemas", "templates", "tools", "docs", "README.md", "LICENSE", "CHANGELOG.md", "CONTRIBUTING.md"],
   "keywords": ["simulation", "deterministic", "world-pack", "replay", "constitutional"],
-  "repository": { "type": "git", "url": "https://github.com/flashpwns/Kane-Parsons-Backrooms---AI-Based-Roleplay-Interface.git" },
-  "bugs": { "url": "https://github.com/flashpwns/Kane-Parsons-Backrooms---AI-Based-Roleplay-Interface/issues" },
+  "repository": { "type": "git", "url": "https://github.com/flashpwns/custodian.git" },
+  "bugs": { "url": "https://github.com/flashpwns/custodian/issues" },
   "scripts": {
     "test": "node --test tests/*.test.js",
     "validate": "node --test tests/artifact-validation.test.js tests/canonical-kernel.test.js tests/perception-projection.test.js tests/epistemic-decision-pipeline.test.js tests/action-execution.test.js tests/constitutional-director.test.js tests/public-session-api.test.js tests/external-worldpack-conformance.test.js tests/public-launch-assets.test.js",
