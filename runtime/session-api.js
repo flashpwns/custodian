@@ -10,9 +10,11 @@ const advancementSchema = require("./contracts/session-advancement-request.schem
 const exportSchema = require("./contracts/session-export-envelope.schema.json");
 const tickSchema = require("./contracts/simulation-tick.schema.json");
 const startupSchema = require("./contracts/session-startup.schema.json");
+const actionRequestSchema = require("./contracts/session-action-request.schema.json");
 const ajv = new Ajv2020({ allErrors: true, strict: false });
-for (const schema of [scenarioSchema, snapshotSchema, tickSchema, startupSchema, creationSchema, advancementSchema, exportSchema]) ajv.addSchema(schema);
+for (const schema of [scenarioSchema, snapshotSchema, tickSchema, startupSchema, creationSchema, advancementSchema, exportSchema, actionRequestSchema]) ajv.addSchema(schema);
 const validScenario = ajv.getSchema(scenarioSchema.$id), validCreation = ajv.getSchema(creationSchema.$id), validSnapshot = ajv.getSchema(snapshotSchema.$id), validAdvance = ajv.getSchema(advancementSchema.$id), validExport = ajv.getSchema(exportSchema.$id);
+const validActionRequest = ajv.getSchema(actionRequestSchema.$id);
 function merge(base, override) { const result = structuredClone(base); for (const [key, value] of Object.entries(override ?? {})) result[key] = value && typeof value === "object" && !Array.isArray(value) ? merge(result[key] ?? {}, value) : structuredClone(value); return result; }
 function sessionId(pack, scenario, history, seed) { return `session-${digest({ version: "public-session@v1", world: { id: pack.id, version: pack.version }, scenario, history, seed: seed ?? {} })}`; }
 function makeSnapshot(pack, scenario, history, seed, complete = false) { const rebuilt = replay(history, pack); return { version: "public-session@v1", id: sessionId(pack, scenario, history, seed), world: { id: pack.id, version: pack.version, kernel_compatibility: pack.kernel_compatibility }, world_pack: structuredClone(pack), scenario: structuredClone(scenario), history: structuredClone(history), observers: structuredClone(scenario.observers), projection: structuredClone(rebuilt.projection), complete, seed_material: structuredClone(seed ?? {}), startup: structuredClone(rebuilt.state.startup ?? {}) }; }
@@ -35,10 +37,28 @@ function advanceSession(request) {
   if (expected !== request.session.id) return error("INVALID_SESSION", { reason: "identity_mismatch" });
   try { const tick = runTick({ history: request.session.history, pack: request.session.world_pack, tick: request.tick, scheduled_events: request.scheduled_events ?? [] }); const snapshot = makeSnapshot(request.session.world_pack, request.session.scenario, [...request.session.history, ...tick.events], request.session.seed_material, tick.complete); return { ok: true, session: structuredClone(snapshot), tick_result: structuredClone(tick), events: structuredClone(tick.events), projection: structuredClone(snapshot.projection), complete: tick.complete, diagnostics: [] }; } catch (cause) { return error("INVALID_TICK_REQUEST", { code: cause.code ?? "director_failed" }); }
 }
+function getAvailableSessionActions({ session, actor }) {
+  const checked = inspectSession(session); if (!checked.ok) return checked;
+  if (!session.observers.some((observer) => observer.id === actor)) return error("INVALID_SESSION", { reason: "unknown_actor" });
+  const permissions = (session.startup?.permissions ?? []).filter((entry) => entry.observer_id === actor).map((entry) => entry.permission);
+  const declared = (session.world_pack.execution_rules ?? []).map((rule) => rule.intent);
+  const profileControlled = Boolean(session.startup?.player?.observer_id);
+  return { ok: true, actor, actions: [...new Set(declared.filter((intent) => !profileControlled || permissions.includes(intent)))].sort() };
+}
+function submitSessionAction(request) {
+  if (!validActionRequest(request)) return error("INVALID_TICK_REQUEST", { contract: "session-action-request" });
+  const actions = getAvailableSessionActions(request); if (!actions.ok) return actions;
+  if (!actions.actions.includes(request.action)) return error("INVALID_TICK_REQUEST", { reason: "action_unavailable" });
+  const at = (request.session.history.reduce((maximum, event) => Math.max(maximum, event.at), 0)) + 1;
+  const tick = { id: `public-action-${digest({ session: request.session.id, actor: request.actor, action: request.action, target: request.target, parameters: request.parameters ?? {}, at })}`, at, observers: [{ id: request.actor, goals: [{ id: `public-goal-${digest({ actor: request.actor, action: request.action, target: request.target, parameters: request.parameters ?? {} })}`, intent: request.action, priority: 0 }], plans: [] }] };
+  const advanced = advanceSession({ session: request.session, tick }); if (!advanced.ok) return advanced;
+  const execution = advanced.tick_result.execution_results[0];
+  return { ok: true, outcome: execution.status === "SUCCESS" ? "succeeded" : execution.status === "BLOCKED" ? "failed" : "rejected", action: request.action, actor: request.actor, reason: execution.reason, event_ids: advanced.events.map((event) => event.id), session: advanced.session };
+}
 function exportSession(session) { const checked = inspectSession(session); if (!checked.ok) return checked; return { ok: true, envelope: { version: "session-export@v1", session: structuredClone(session), cache: { projection_identity: session.projection.identity }, serialization: stable({ version: "session-export@v1", session, cache: { projection_identity: session.projection.identity } }) } }; }
 function restoreSession(envelope) {
   if (!validExport(envelope)) return error("INVALID_SESSION", { contract: "session-export-envelope" });
   const adapted = adaptWorldPack(envelope.session.world_pack); if (!adapted.ok) return adapted;
   try { const snapshot = makeSnapshot(adapted.value, envelope.session.scenario, envelope.session.history, envelope.session.seed_material, envelope.session.complete); if (snapshot.projection.identity !== envelope.cache.projection_identity) return error("PROJECTION_IDENTITY_MISMATCH", { expected: envelope.cache.projection_identity, actual: snapshot.projection.identity }); return { ok: true, session: structuredClone(snapshot) }; } catch (cause) { return error("CORRUPTED_HISTORY", { code: cause.code ?? "replay_failed" }); }
 }
-module.exports = { createSession, advanceSession, inspectSession, exportSession, restoreSession };
+module.exports = { createSession, advanceSession, inspectSession, exportSession, restoreSession, getAvailableSessionActions, submitSessionAction };
