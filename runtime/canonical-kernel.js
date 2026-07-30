@@ -158,6 +158,18 @@ function objectiveProjection(state, events, pack) {
   valid(validateProjection, projection, "invalid_objective_projection");
   return projection;
 }
+function resolveObserverContext(state, observerId) {
+  if (!state || typeof observerId !== "string" || !observerId) return { status: "unavailable", code: "invalid_observer" };
+  const observer = state.objective?.observers?.[observerId];
+  if (!observer || observer.id !== observerId) return { status: "unavailable", code: "observer_authority_unavailable" };
+  const capabilities = Array.isArray(observer.capabilities) ? structuredClone(observer.capabilities) : [];
+  const access = Array.isArray(observer.access) ? structuredClone(observer.access) : [];
+  if (observer.origin !== "embodied") return { status: "unavailable", code: observer.origin === "remote" ? "remote_origin_unavailable" : "observer_context_unavailable", observer: observerId, origin: observer.origin, capabilities, access };
+  if (typeof observer.actor_id !== "string" || !observer.actor_id) return { status: "unavailable", code: "observer_binding_unavailable", observer: observerId, origin: observer.origin, capabilities, access };
+  const actor = state.objective?.actors?.[observer.actor_id];
+  if (!actor || actor.id !== observer.actor_id || typeof actor.position !== "string" || !actor.position) return { status: "unavailable", code: "observer_origin_unavailable", observer: observerId, origin: observer.origin, capabilities, access };
+  return { status: "resolved", context: { observer: observerId, location: actor.position, capabilities, access } };
+}
 function rejectedObservation(request, code) {
   return {
     request_id: typeof request?.id === "string" ? request.id : "",
@@ -202,4 +214,4 @@ function evaluateDecision(projection, request, observerState) {
   valid(validateDecisionResult, result, "invalid_decision_result");
   return result;
 }
-module.exports = { ORDERING_POLICY, compareEvents, reducerDefinitions, stable, digest, replay, objectiveProjection, initialState, evaluateObservation, projectPerspective, evaluateDecision, fail };
+module.exports = { ORDERING_POLICY, compareEvents, reducerDefinitions, stable, digest, replay, objectiveProjection, initialState, resolveObserverContext, evaluateObservation, projectPerspective, evaluateDecision, fail };
