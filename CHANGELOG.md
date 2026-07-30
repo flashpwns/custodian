@@ -2,6 +2,17 @@
 
 All notable changes are documented here.
 
+## 1.3.0 — Unreleased
+
+- Add canonical actor and observer registries to the objective session state.
+- Add explicit observer-to-actor bindings, actor-owned spatial positions, and
+  canonical observer capability/access references.
+- Add replayable `actors.*` and `observers.*` reducer domains and
+  `canonical-session@v2` export metadata. Compatible earlier exports remain
+  restorable without fabricated authority records.
+- Document the actor/observer foundation. Director authority resolution and the
+  public observer-view API are intentionally deferred.
+
 ## 1.1.0 — Unreleased
 
 - Add additive declarative, profile-aware session startup. Startup is replayed
