@@ -1,6 +1,6 @@
 "use strict";
 const Ajv2020 = require("ajv/dist/2020");
-const { replay, stable, digest } = require("./canonical-kernel.js");
+const { replay, stable, digest, resolveObserverContext, evaluateObservation } = require("./canonical-kernel.js");
 const { runTick } = require("./constitutional-director.js");
 const { adaptWorldPack, error } = require("./world-pack-adapter.js");
 const scenarioSchema = require("./contracts/scenario.schema.json");
@@ -11,10 +11,12 @@ const exportSchema = require("./contracts/session-export-envelope.schema.json");
 const tickSchema = require("./contracts/simulation-tick.schema.json");
 const startupSchema = require("./contracts/session-startup.schema.json");
 const actionRequestSchema = require("./contracts/session-action-request.schema.json");
+const observerInspectionRequestSchema = require("./contracts/observer-inspection-request.schema.json");
 const ajv = new Ajv2020({ allErrors: true, strict: false });
-for (const schema of [scenarioSchema, snapshotSchema, tickSchema, startupSchema, creationSchema, advancementSchema, exportSchema, actionRequestSchema]) ajv.addSchema(schema);
+for (const schema of [scenarioSchema, snapshotSchema, tickSchema, startupSchema, creationSchema, advancementSchema, exportSchema, actionRequestSchema, observerInspectionRequestSchema]) ajv.addSchema(schema);
 const validScenario = ajv.getSchema(scenarioSchema.$id), validCreation = ajv.getSchema(creationSchema.$id), validSnapshot = ajv.getSchema(snapshotSchema.$id), validAdvance = ajv.getSchema(advancementSchema.$id), validExport = ajv.getSchema(exportSchema.$id);
 const validActionRequest = ajv.getSchema(actionRequestSchema.$id);
+const validObserverInspectionRequest = ajv.getSchema(observerInspectionRequestSchema.$id);
 function merge(base, override) { const result = structuredClone(base); for (const [key, value] of Object.entries(override ?? {})) result[key] = value && typeof value === "object" && !Array.isArray(value) ? merge(result[key] ?? {}, value) : structuredClone(value); return result; }
 function initializeAuthority(pack, scenario) {
   const next = structuredClone(pack);
@@ -70,10 +72,39 @@ function submitSessionAction(request) {
   const execution = advanced.tick_result.execution_results[0];
   return { ok: true, outcome: execution.status === "SUCCESS" ? "succeeded" : execution.status === "BLOCKED" ? "failed" : "rejected", action: request.action, actor: request.actor, reason: execution.reason, event_ids: advanced.events.map((event) => event.id), session: advanced.session };
 }
+function observationFailure(observer, kind, public_reason) { return { ok: true, request_id: "", observer_id: typeof observer === "string" ? observer : "", kind: typeof kind === "string" ? kind : "", outcome: "rejected", view: null, targets: [], details: [], public_reason }; }
+function visibleTargets(session, projection, context) {
+  const signals = projection.objective.environment?.signals ?? {};
+  return Object.keys(signals).sort().flatMap((target) => {
+    const signal = signals[target];
+    const result = evaluateObservation(projection, { id: `look-${digest({ session: session.id, observer: context.observer, projection: projection.identity, target })}`, observer: context.observer, projection_identity: projection.identity, modality: signal.modality, target }, context);
+    if (result.status !== "observed") return [];
+    return [{ target, ref: `observer-target-${digest({ session: session.id, observer: context.observer, projection: projection.identity, target })}`, kind: "signal", modality: result.modality }];
+  });
+}
+function publicTarget(target) { return { ref: target.ref, kind: target.kind, modality: target.modality }; }
+function inspectSessionObserver({ session, observer, request } = {}) {
+  const checked = inspectSession(session); if (!checked.ok) return checked;
+  const kind = request?.kind;
+  if (!validObserverInspectionRequest(request)) return observationFailure(observer, kind, "observation unavailable");
+  if (!session.observers.some((entry) => entry.id === observer)) return observationFailure(observer, kind, "observation unavailable");
+  let rebuilt;
+  try { rebuilt = replay(session.history, session.world_pack); } catch { return observationFailure(observer, kind, "observation unavailable"); }
+  const resolved = resolveObserverContext(rebuilt.state, observer);
+  if (resolved.status !== "resolved") return observationFailure(observer, kind, "observation unavailable");
+  const targets = visibleTargets(session, rebuilt.projection, resolved.context);
+  if (kind === "look") return { ok: true, request_id: typeof request.id === "string" ? request.id : "", observer_id: observer, kind, outcome: "succeeded", view: { location: resolved.context.location }, targets: targets.map(publicTarget), details: [], public_reason: null };
+  if (typeof request.target !== "string") return observationFailure(observer, kind, "target unavailable");
+  const selected = targets.find((target) => target.ref === request.target);
+  if (!selected) return observationFailure(observer, kind, "target unavailable");
+  const result = evaluateObservation(rebuilt.projection, { id: typeof request.id === "string" ? request.id : `inspect-${selected.ref}`, observer, projection_identity: rebuilt.projection.identity, modality: selected.modality, target: selected.target }, resolved.context);
+  if (result.status !== "observed") return observationFailure(observer, kind, "target unavailable");
+  return { ok: true, request_id: result.request_id, observer_id: observer, kind, outcome: "succeeded", view: { location: resolved.context.location }, targets: [publicTarget(selected)], details: [{ kind: selected.kind, modality: result.modality, content: result.content, fidelity: result.fidelity }], public_reason: null };
+}
 function exportSession(session) { const checked = inspectSession(session); if (!checked.ok) return checked; return { ok: true, envelope: { version: "session-export@v1", session: structuredClone(session), cache: { projection_identity: session.projection.identity }, serialization: stable({ version: "session-export@v1", session, cache: { projection_identity: session.projection.identity } }) } }; }
 function restoreSession(envelope) {
   if (!validExport(envelope)) return error("INVALID_SESSION", { contract: "session-export-envelope" });
   const adapted = adaptWorldPack(envelope.session.world_pack); if (!adapted.ok) return adapted;
   try { const snapshot = makeSnapshot(adapted.value, envelope.session.scenario, envelope.session.history, envelope.session.seed_material, envelope.session.complete); if (snapshot.projection.identity !== envelope.cache.projection_identity) return error("PROJECTION_IDENTITY_MISMATCH", { expected: envelope.cache.projection_identity, actual: snapshot.projection.identity }); return { ok: true, session: structuredClone(snapshot) }; } catch (cause) { return error("CORRUPTED_HISTORY", { code: cause.code ?? "replay_failed" }); }
 }
-module.exports = { createSession, advanceSession, inspectSession, exportSession, restoreSession, getAvailableSessionActions, submitSessionAction };
+module.exports = { createSession, advanceSession, inspectSession, exportSession, restoreSession, getAvailableSessionActions, submitSessionAction, inspectSessionObserver };

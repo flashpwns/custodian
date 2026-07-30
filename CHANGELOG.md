@@ -2,6 +2,13 @@
 
 All notable changes are documented here.
 
+## 1.5.0 — Unreleased
+
+- Add the public, read-only `inspectSessionObserver` API for observer-safe
+  LOOK and INSPECT queries.
+- Add deterministic opaque target references, stale-reference revalidation,
+  observer/session isolation, and hidden-target failure privacy.
+
 ## 1.4.0 — Unreleased
 
 - Resolve Director perception context from canonical actor/observer state.
