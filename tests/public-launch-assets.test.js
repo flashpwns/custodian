@@ -49,7 +49,7 @@ try {
   const app = path.join(artifactDirectory, "consumer");
   fs.mkdirSync(path.join(app, "node_modules"), { recursive: true });
   fs.symlinkSync(packagedRoot, path.join(app, "node_modules", "custodian"), "dir");
-  const consumer = spawnSync(process.execPath, ["-e", "const api=require('custodian'); if(typeof api.createSession!=='function') process.exit(3); try { require('custodian/runtime/canonical-kernel.js'); process.exit(4); } catch (error) { if (error.code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') process.exit(5); }"], { cwd: app, encoding: "utf8" });
+  const consumer = spawnSync(process.execPath, ["-e", "const api=require('custodian'); if(typeof api.createSession!=='function'||typeof api.inspectSessionObserver!=='function') process.exit(3); const p={id:'packed-view',version:'1',kernel_compatibility:'canonical-kernel@v1',initial_objective:{timeline:{pending:[]},environment:{locations:{a:{}},signals:{s:{location:'a',modality:'visual',content:'x',fidelity:1,source:'e'}}},resources:{},evidence:[],messages:[],actions:[]},observation_capabilities:[{id:'visual',modalities:['visual']}],rules:[]}; const s={id:'s',world:{id:'packed-view',version:'1'},actors:[{id:'actor',position:'a'}],observers:[{id:'observer',goals:[],plans:[],actor_id:'actor',origin:'embodied',capabilities:['visual'],access:[]}]}; const made=api.createSession({world_pack:p,scenario:s}); const view=api.inspectSessionObserver({session:made.session,observer:'observer',request:{kind:'look'}}); const detail=api.inspectSessionObserver({session:made.session,observer:'observer',request:{kind:'inspect',target:view.targets[0]?.ref}}); if(!made.ok||view.outcome!=='succeeded'||detail.outcome!=='succeeded') process.exit(6); try { require('custodian/runtime/canonical-kernel.js'); process.exit(4); } catch (error) { if (error.code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') process.exit(5); }"], { cwd: app, encoding: "utf8" });
   assert.equal(consumer.status, 0, consumer.stderr);
 } finally { fs.rmSync(artifactDirectory, { recursive: true, force: true }); }
 
@@ -68,7 +68,7 @@ for (const relative of [
   "docs/releases/v1.0.0.md", "docs/releases/release-checklist.md", ".github/workflows/validate.yml"
 ]) assert.ok(fs.existsSync(path.join(root, relative)), `${relative} exists`);
 assert.match(fs.readFileSync(path.join(root, "CHANGELOG.md"), "utf8"), /1\.0\.0/);
-assert.equal(JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version, "1.4.0");
+assert.equal(JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version, "1.5.0");
 const packageMetadata = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
 for (const published of ["templates", "tools", "LICENSE", "CHANGELOG.md", "CONTRIBUTING.md"]) assert.ok(packageMetadata.files.includes(published), `${published} is packaged`);
 console.log("validated public launch assets, starter scaffold, examples, and documented public API flow");
