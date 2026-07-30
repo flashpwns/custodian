@@ -2,7 +2,7 @@
 
 const Ajv2020 = require("ajv/dist/2020");
 const tickSchema = require("./contracts/simulation-tick.schema.json");
-const { replay, evaluateObservation, evaluateDecision } = require("./canonical-kernel.js");
+const { replay, resolveObserverContext, evaluateObservation, evaluateDecision } = require("./canonical-kernel.js");
 const { resolveActions, materializeExecutionEvents } = require("./action-executor.js");
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
@@ -21,8 +21,15 @@ function runTick({ history = [], pack, tick, scheduled_events = [] }) {
   const append = (events) => { if (!events.length) return; allEvents = [...allEvents, ...events]; emitted.push(...events); const rebuilt = replay(allEvents, pack); state = rebuilt.state; projection = rebuilt.projection; };
   append([...scheduled_events].sort((a, b) => a.id.localeCompare(b.id)));
   const perceptionEvents = [];
+  const perceptionResults = [];
   for (const observer of observers) if (observer.perception) {
-    const result = evaluateObservation(projection, observer.perception.request, observer.perception.context);
+    // Legacy caller context remains parse-compatible, but is deliberately ignored.
+    // Canonical actor/observer state is the only authority for perception context.
+    const resolved = resolveObserverContext(state, observer.id);
+    const result = resolved.status === "resolved"
+      ? evaluateObservation(projection, observer.perception.request, resolved.context)
+      : { request_id: observer.perception.request?.id ?? "", observer: observer.id, projection_identity: projection.identity, status: "rejected", code: "observer_context_unavailable" };
+    perceptionResults.push({ observer: observer.id, result: structuredClone(result) });
     if (result.status === "observed") perceptionEvents.push(canonicalTemplate({ type: "perception.observation.recorded", domain: "perception", payload: { observer: observer.id, result, causal_source: result.source }, causal_parents: [result.source] }, tick, nextSequence([...allEvents, ...perceptionEvents]), pack));
   }
   append(perceptionEvents);
@@ -39,6 +46,6 @@ function runTick({ history = [], pack, tick, scheduled_events = [] }) {
   results.forEach((result, index) => { const events = materializeExecutionEvents(result, proposalEvents[index], sequence); sequence += events.length; executionEvents.push(...events); });
   append(executionEvents);
   const pending = projection.objective.timeline?.pending?.length ?? 0;
-  return { tick_id: tick.id, phase_order: PHASE_ORDER, observer_order: observers.map((observer) => observer.id), decisions: decisions.map(({ observer, result }) => ({ observer: observer.id, result })), execution_results: results, events: emitted, state, projection, complete: proposalEvents.length === 0 && pending === 0 && executionEvents.length === 0 };
+  return { tick_id: tick.id, phase_order: PHASE_ORDER, observer_order: observers.map((observer) => observer.id), perception_results: perceptionResults, decisions: decisions.map(({ observer, result }) => ({ observer: observer.id, result })), execution_results: results, events: emitted, state, projection, complete: proposalEvents.length === 0 && pending === 0 && executionEvents.length === 0 };
 }
 module.exports = { PHASE_ORDER, runTick };

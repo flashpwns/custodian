@@ -2,6 +2,14 @@
 
 All notable changes are documented here.
 
+## 1.4.0 — Unreleased
+
+- Resolve Director perception context from canonical actor/observer state.
+  Caller-supplied legacy perception context remains parse-compatible but is not
+  authoritative.
+- Add deterministic observer-context resolution, actor-movement coherence, and
+  location/capability/access spoof-resistance coverage.
+
 ## 1.3.0 — Unreleased
 
 - Add canonical actor and observer registries to the objective session state.

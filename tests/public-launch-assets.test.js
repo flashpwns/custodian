@@ -68,7 +68,7 @@ for (const relative of [
   "docs/releases/v1.0.0.md", "docs/releases/release-checklist.md", ".github/workflows/validate.yml"
 ]) assert.ok(fs.existsSync(path.join(root, relative)), `${relative} exists`);
 assert.match(fs.readFileSync(path.join(root, "CHANGELOG.md"), "utf8"), /1\.0\.0/);
-assert.equal(JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version, "1.3.0");
+assert.equal(JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version, "1.4.0");
 const packageMetadata = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
 for (const published of ["templates", "tools", "LICENSE", "CHANGELOG.md", "CONTRIBUTING.md"]) assert.ok(packageMetadata.files.includes(published), `${published} is packaged`);
 console.log("validated public launch assets, starter scaffold, examples, and documented public API flow");
