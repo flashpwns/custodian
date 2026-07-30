@@ -51,6 +51,8 @@ function valid(validator, value, code) { if (!validator(value)) fail(code, ajv.e
 
 const reducerDefinitions = Object.freeze([
   { domain: "session", accepts: ["session."], reads: ["startup"], writes: ["startup", "knowledge", "resources"] },
+  { domain: "actors", accepts: ["actors."], reads: ["actors"], writes: ["actors"] },
+  { domain: "observers", accepts: ["observers."], reads: ["observers"], writes: ["observers"] },
   { domain: "time", accepts: ["time."], reads: ["timeline"], writes: ["timeline"] },
   { domain: "agency", accepts: ["agency."], reads: ["actions"], writes: ["actions"] },
   { domain: "environment", accepts: ["environment."], reads: ["environment"], writes: ["environment"] },
@@ -67,6 +69,8 @@ const reducerDefinitions = Object.freeze([
 function initialState(pack) {
   valid(validateWorldPack, pack, "invalid_world_pack");
   const objective = structuredClone(pack.initial_objective);
+  objective.actors = structuredClone(objective.actors ?? {});
+  objective.observers = structuredClone(objective.observers ?? {});
   objective.observation_capabilities = structuredClone(pack.observation_capabilities ?? []);
   return { objective, local: { plans: {}, memories: {}, relationships: {}, beliefs: {}, knowledge: {}, perceptions: {} }, startup: {}, applied: [], simulation_time: 0 };
 }
@@ -83,6 +87,25 @@ function apply(state, event) {
     next.startup = structuredClone({ ...p, knowledge, permissions, resources });
     next.local.knowledge[p.player.observer_id] = structuredClone(knowledge);
     next.objective.resources = { ...(next.objective.resources ?? {}), ...Object.fromEntries(resources.map((entry) => [entry.id, structuredClone(entry)])) };
+  }
+  if (event.domain === "actors") {
+    if (event.type === "actors.initialized") {
+      if (typeof p.id !== "string" || !p.id) fail("invalid_actor_record", "id");
+      if (next.objective.actors[p.id]) fail("duplicate_actor", p.id);
+      next.objective.actors[p.id] = structuredClone({ id: p.id, ...(p.position === undefined ? {} : { position: p.position }) });
+    } else if (event.type === "actors.positioned") {
+      if (typeof p.actor_id !== "string" || !next.objective.actors[p.actor_id]) fail("unknown_actor", p.actor_id ?? "");
+      next.objective.actors[p.actor_id].position = structuredClone(p.position);
+    } else fail("invalid_actor_event", event.type);
+  }
+  if (event.domain === "observers") {
+    if (event.type !== "observers.initialized" || typeof p.id !== "string" || !p.id) fail("invalid_observer_record", event.type);
+    if (next.objective.observers[p.id]) fail("duplicate_observer", p.id);
+    if (p.actor_id !== undefined && !next.objective.actors[p.actor_id]) fail("unknown_bound_actor", p.actor_id);
+    const origin = p.origin ?? (p.actor_id ? "embodied" : "unavailable");
+    if (!["embodied", "remote", "unavailable"].includes(origin)) fail("invalid_observer_origin", origin);
+    if (origin === "embodied" && !p.actor_id) fail("invalid_observer_binding", p.id);
+    next.objective.observers[p.id] = structuredClone({ id: p.id, origin, ...(p.actor_id ? { actor_id: p.actor_id } : {}), capabilities: p.capabilities ?? [], access: p.access ?? [] });
   }
   if (event.domain === "time") next.objective.timeline = { ...(next.objective.timeline ?? {}), ...p };
   if (event.domain === "agency") {
