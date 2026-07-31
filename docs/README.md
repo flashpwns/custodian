@@ -29,6 +29,8 @@ and Reference World Packs fit together without weakening persistence or continui
 - [`architecture/world-pack-boundary.md`](architecture/world-pack-boundary.md)
   defines the World Pack API boundary between constitutional mechanics and world
   content.
+- [`generic-effects.md`](generic-effects.md) defines the public generic
+  canonical effect API for declarative world-pack mutations.
 - [`architecture/perception-projection.md`](architecture/perception-projection.md)
   defines projection-pinned observer-local perceptual acquisition.
 - [`architecture/epistemic-decision-pipeline.md`](architecture/epistemic-decision-pipeline.md)

@@ -2,6 +2,16 @@
 
 All notable changes are documented here.
 
+## 1.6.0 — Unreleased
+
+- Add public `applySessionEffects` with versioned, setting-neutral generic
+  primitives for relocation, relations, object state, transfer, communication,
+  time, and semantic event recording.
+- Persist request idempotence in canonical history; ordered dependencies,
+  partial results, replay, and export/restore are deterministic.
+- Preserve observer-safe inspection and knowledge boundaries: applying effects
+  does not reveal hidden state or create knowledge.
+
 ## 1.5.0 — Unreleased
 
 - Add the public, read-only `inspectSessionObserver` API for observer-safe

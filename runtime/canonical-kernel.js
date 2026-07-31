@@ -17,6 +17,7 @@ const effectRequestSchema = require("./contracts/effect-request.schema.json");
 const projectionSchema = require("../state/schemas/objective-projection.schema.json");
 const worldPackSchema = require("./contracts/world-pack.schema.json");
 const startupSchema = require("./contracts/session-startup.schema.json");
+const { applyMutation } = require("./generic-effects.js");
 
 const ORDERING_POLICY = "time-phase-priority-sequence-id@v1";
 const phases = Object.freeze({ scheduled: 0, action: 1, consequence: 2, information: 3 });
@@ -77,7 +78,7 @@ function initialState(pack) {
 function apply(state, event) {
   const reducer = reducerDefinitions.find((item) => item.domain === event.domain);
   if (!reducer || !reducer.accepts.some((prefix) => event.type.startsWith(prefix))) fail("illegal_domain_ownership", event.type);
-  const next = structuredClone(state);
+  let next = structuredClone(state);
   const p = event.payload;
   if (event.domain === "session") {
     if (event.type !== "session.started") fail("invalid_session_start", event.type);
@@ -112,7 +113,12 @@ function apply(state, event) {
     if (event.type === "agency.action.proposed") valid(validateActionProposal, p, "invalid_action_proposal");
     next.objective.actions = [...(next.objective.actions ?? []), { id: event.id, ...p }];
   }
-  if (event.domain === "environment") next.objective.environment = { ...(next.objective.environment ?? {}), ...p };
+  if (event.domain === "environment") {
+    if (event.type === "environment.generic-effect.resolved") {
+      if (!p || typeof p !== "object" || typeof p.request_id !== "string" || !p.effect_result) fail("invalid_generic_effect", "payload");
+      if (p.effect_result.status === "APPLIED") next = applyMutation(next, p.mutation, event.id);
+    } else next.objective.environment = { ...(next.objective.environment ?? {}), ...p };
+  }
   if (event.domain === "resources") next.objective.resources = { ...(next.objective.resources ?? {}), ...p };
   if (event.domain === "evidence") next.objective.evidence = [...(next.objective.evidence ?? []), { id: event.id, ...p }];
   if (event.domain === "communication") next.objective.messages = [...(next.objective.messages ?? []), { id: event.id, ...p }];
